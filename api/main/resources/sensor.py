@@ -2,8 +2,8 @@ from flask_restful import Resource
 from flask import request
 
 SENSORS = {
-    1: {"name": "sensor1", "status": "verificado"},
-    2: {"name": "sensor2", "status": "no verificado"},
+    1: {"name": "sensor1", "status": "ACTIVO"},
+    2: {"name": "sensor2", "status": "DESACTIVADO"},
 }
 
 
