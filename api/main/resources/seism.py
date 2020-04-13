@@ -12,7 +12,7 @@ class VerifiedSeism(Resource):
         if seism.verified:
             return seism.to_json()
         else:
-            return "ACCESS DENY", 403
+            return "ACCESS DENIED", 403
 
 
 # Recurso dato sismoS
@@ -32,7 +32,7 @@ class UnverifiedSeism(Resource):
         if not seism.verified:
             return seism.to_json()
         else:
-            return "ACCESS DENY", 403
+            return "ACCESS DENIED", 403
 
     # Eliminar recurso
     def delete(self, id):
@@ -42,7 +42,7 @@ class UnverifiedSeism(Resource):
             db.session.commit()
             return "DELETE COMPLETE", 204
         else:
-            return "ACCESS DENY", 403
+            return "ACCESS DENIED", 403
 
     # Modificar recurso
     def put(self, id):
@@ -54,7 +54,7 @@ class UnverifiedSeism(Resource):
             db.session.commit()
             return seism.to_json(), 201
         else:
-            return "ACCESS DENY", 403
+            return "ACCESS DENIED", 403
 
 
 # Recurso UsismoS

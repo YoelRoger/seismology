@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 api = Api()
 db = SQLAlchemy()
 
+
 def create_app():
     app = Flask(__name__)
     load_dotenv()
@@ -26,5 +27,7 @@ def create_app():
     api.add_resource(resources.VerifiedseismResource, '/verified-seism/<id>')
     api.add_resource(resources.UnverifiedseismsResource, '/unverified-seisms')
     api.add_resource(resources.UnverifiedseismResource, '/unverified-seism/<id>')
+    api.add_resource(resources.UserResource, '/user/<id>')
+    api.add_resource(resources.UsersResource, '/users')
     api.init_app(app)
     return app
