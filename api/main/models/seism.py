@@ -9,8 +9,9 @@ class Seism(db.Model):
     latitude = db.Column(db.String(100), nullable=False)
     longitude = db.Column(db.String(100), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
-
-    # sensorid = db.Column(db.Integer, nullable=False)
+    sensorId = db.Column(db.Integer, db.ForeingJey('sensor.sensorId'), nulleable=False)
+    # relacion con sensores < seism
+    sensor = db.relationship('Sensor', backpopulates="seisms", userlist=False, single_parent=True)
 
     def __repr__(self):
         return '<User:  %r %r %r %r %r>' % (self.id, self.datetime, self.magnitude, self.verified, self.sensorid)

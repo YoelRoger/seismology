@@ -20,6 +20,18 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('SQLALCHEMY_DATABASE_PATH')+os.getenv('SQLALCHEMY_DATABASE_NAME')
     db.init_app(app)
 
+    # Verifica si la conexion es sqlite
+
+    if 'sqlite' in app.config['SQLALCHEMY_DATABASE_URI']:
+        def activatePrimaryKeys(conection, conection_record):
+            # Ejecuta el comando que activa claves foraneas en sqlite
+            conection.execute('pragma foreign_keys=ON')
+
+        with app.app_context():
+            from sqlalchemy import event
+            # Al conectar a la base de datos llamar a la función que activa la claves foraneas
+            event.listen(db.engine, 'connect', activatePrimaryKeys)
+
     import main.resources as resources
     api.add_resource(resources.SensorsResource, '/sensors')
     api.add_resource(resources.SensorResource, '/sensor/<id>')

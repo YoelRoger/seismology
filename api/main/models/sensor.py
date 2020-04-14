@@ -9,7 +9,11 @@ class Sensor(db.Model):
     port = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    # userId = db.Column(db.Integer, nullable=False)
+    userId = db.Column(db.Integer, db.ForeingJey('user.userId'), nulleable=True)
+    # relacion con user < sensores
+    user = db.relationship('User', back_populates="sensors", uselist=False, single_parent=True)
+    # relacion con seisms > sensor
+    seisms = db.relationship("Seism", back_populates="sensor", passive_deletes='all')
 
     def __repr__(self):
         return '<User: %r %r %r %r %r>' % (self.name, self.ip, self.port, self.status, self.active)
@@ -23,7 +27,7 @@ class Sensor(db.Model):
             'port': int(self.port),
             'status': bool(self.status),
             'active': bool(self.active),
-            # 'userId' : int(self.userId)
+            'userId': int(self.userId)
         }
         return sensor_json
 
@@ -35,10 +39,11 @@ class Sensor(db.Model):
         port = sensor_json.get('port')
         status = sensor_json.get('status')
         active = sensor_json.get('active')
-        # userId = sensor_json.get('userId')
+        userId = sensor_json.get('userId')
         return Sensor(id=id,
                       name=name,
                       ip=ip,
                       port=port,
                       status=status,
-                      active=active)
+                      active=active,
+                      userId=userId)
