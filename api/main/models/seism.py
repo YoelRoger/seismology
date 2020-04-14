@@ -3,7 +3,7 @@ from .. import db
 
 class Seism(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    datetime = db.Column(db.Datetime, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
     depth = db.Column(db.Integer, nullable=False)
     magnitude = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.String(100), nullable=False)
@@ -19,7 +19,7 @@ class Seism(db.Model):
     def to_json(self):
         seism_json = {
             'id': self.id,
-            'datetime': self.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            'datetime': self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
             'dept': int(self.depth),
             'magnitude': str(self.magnitude),
             'latitude': str(self.latitude),
@@ -31,16 +31,17 @@ class Seism(db.Model):
     @staticmethod
     def from_json(seism_json):
         id = seism_json.get('id')
-        dt = datetime.strptime(seism_json.get('datetime'), "%Y-%m-%d %H:%M:%S")
+        datetime = datetime.strptime(seism_json.get('datetime'), "%Y-%m-%d %H:%M:%S")
         depth = seism_json.get('depth')
         latitude = seism_json.get('latitude')
         magnitude = seism_json.get('magnitude')
         longitude = seism_json.get('longitude')
         verified = seism_json.get('verified')
         return Seism(id=id,
-                     dt=dt,
+                     dt=datetime,
                      depth=depth,
                      latitude=latitude,
                      longitude=longitude,
-                     magnitude=magnitude)
+                     magnitude=magnitude,
+                     verified=verified)
         # sensorId=sensorId
