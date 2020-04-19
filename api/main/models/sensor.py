@@ -1,4 +1,5 @@
 from .. import db
+from . import UserModel
 
 
 class Sensor(db.Model):
@@ -9,7 +10,7 @@ class Sensor(db.Model):
     port = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    userId = db.Column(db.Integer, db.ForeingJey('user.userId'), nulleable=True)
+    userId = db.Column(db.Integer, db.ForeingJey('user.userId'), nulleable=True)  # TRUE
     # relacion con user < sensores
     user = db.relationship('User', back_populates="sensors", uselist=False, single_parent=True)
     # relacion con seisms > sensor
@@ -20,6 +21,8 @@ class Sensor(db.Model):
 
 # CONVERTIR A JSON
     def to_json(self):
+        # agrego verificacion para no pasar id a users inexistentes en json
+        self.user = db.session.query(UserModel).get_or_404(self.userId)
         sensor_json = {
             'id': self.id,
             'name': str(self.name),
@@ -27,7 +30,8 @@ class Sensor(db.Model):
             'port': int(self.port),
             'status': bool(self.status),
             'active': bool(self.active),
-            'userId': int(self.userId)
+            'userId': int(self.userId),
+            'user': self.user.to_json()  # paso el user completo asociado tambien
         }
         return sensor_json
 
@@ -39,7 +43,7 @@ class Sensor(db.Model):
         port = sensor_json.get('port')
         status = sensor_json.get('status')
         active = sensor_json.get('active')
-        userId = sensor_json.get('userId')
+        userId = sensor_json.get('userId')  # recibe clave foranea tmb
         return Sensor(id=id,
                       name=name,
                       ip=ip,

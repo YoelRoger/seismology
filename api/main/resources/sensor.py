@@ -15,7 +15,12 @@ class Sensor(Resource):
     def delete(self, id):
         sensor = db.session.query(SensorModel).get_or_404(id)
         db.session.delete(sensor)
-        db.session.commit()
+        # db.session.commit() agrego restriccion de mustra para el usuario si elimina un sensor con sismos
+        try:
+            db.session.commit()
+        except Exception as error:
+            db.session.rollback()
+            return 'INTENTO ELIMINAR UN SENSOR CON SISMOS ASOCIADOS', 409
         return "DELETE COMPLETE", 204
 
     # Modificar recurso
@@ -31,7 +36,21 @@ class Sensor(Resource):
 class Sensors(Resource):
     # Obtener recursoS
     def get(self):
-        sensors = db.session.query(SensorModel).all()
+        #  AGREGAR FILTRO PARA TRAER SENSORES
+        filters = request.get_json().items()
+        sensors = db.session.query(SensorModel)
+        for key, value in filters:
+            if key == "userId":
+                sensors = sensors.filter(SensorModel.userId == value)
+            if key == "status":
+                sensors = sensors.filter(SensorModel.status == value)
+            if key == 'port':
+                sensors = sensors.filter(SensorModel.port == value)
+            if key == 'active':
+                sensors = sensors.filter(SensorModel.active == value)
+            if key == 'name':
+                sensors = sensors.filter(SensorModel.name == value)
+        sensors.all()
         return jsonify({'Sensors': [sensor.to_json() for sensor in sensors]})
 
     # Insertar recurso

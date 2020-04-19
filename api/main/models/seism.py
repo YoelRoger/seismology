@@ -1,5 +1,5 @@
 from .. import db
-
+from . import SensorModel
 
 class Seism(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,7 +9,8 @@ class Seism(db.Model):
     latitude = db.Column(db.String(100), nullable=False)
     longitude = db.Column(db.String(100), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
-    sensorId = db.Column(db.Integer, db.ForeingJey('sensor.sensorId'), nulleable=False)
+    sensorId = db.Column(db.Integer, db.ForeingJey('sensor.sensorId', ondelete='RESTRICT'), nulleable=False)
+    # ondelete  = RESTRICTED para no permitir eliminar sensores con sismos guardados
     # relacion con sensores < seism
     sensor = db.relationship('Sensor', backpopulates="seisms", userlist=False, single_parent=True)
 
@@ -18,6 +19,8 @@ class Seism(db.Model):
 
     # CONVERTIR A JSON
     def to_json(self):
+        # agrego verificacion para no pasar id a sensores inexistentes en json
+        self.sensor = db.session.query(SensorModel).get_or_404(self.sensorId)
         seism_json = {
             'id': self.id,
             'datetime': self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
@@ -26,6 +29,7 @@ class Seism(db.Model):
             'latitude': str(self.latitude),
             'longitude': str(self.longitude),
             'verified': bool(self.verified),
+            'sensor': self.sensor.to_json()  # paso el sensor completo asociado tambien
         }
         return seism_json
 
@@ -38,11 +42,13 @@ class Seism(db.Model):
         magnitude = seism_json.get('magnitude')
         longitude = seism_json.get('longitude')
         verified = seism_json.get('verified')
+        sensorId = seism_json.get('sensorId')  # ahora tambien recibe la clave foranea
         return Seism(id=id,
                      dt=datetime,
                      depth=depth,
                      latitude=latitude,
                      longitude=longitude,
                      magnitude=magnitude,
-                     verified=verified)
+                     verified=verified,
+                     sensorId=sensorId)
         # sensorId=sensorId
