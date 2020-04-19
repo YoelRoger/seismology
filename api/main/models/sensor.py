@@ -10,7 +10,7 @@ class Sensor(db.Model):
     port = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    userId = db.Column(db.Integer, db.ForeingJey('user.userId'), nulleable=True)  # TRUE
+    userId = db.Column(db.Integer, db.ForeignKey('user.userId'), nulleable=True)  # TRUE
     # relacion con user < sensores
     user = db.relationship('User', back_populates="sensors", uselist=False, single_parent=True)
     # relacion con seisms > sensor
