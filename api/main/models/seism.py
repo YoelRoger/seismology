@@ -1,6 +1,7 @@
 from .. import db
 from . import SensorModel
 
+
 class Seism(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     datetime = db.Column(db.DateTime, nullable=False)
@@ -9,10 +10,10 @@ class Seism(db.Model):
     latitude = db.Column(db.String(100), nullable=False)
     longitude = db.Column(db.String(100), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
-    sensorId = db.Column(db.Integer, db.ForeignKey('sensor.sensorId', ondelete='RESTRICT'), nulleable=False)
+    sensorId = db.Column(db.Integer, db.ForeignKey('sensor.sensorId', ondelete='RESTRICT'), nullable=False)
     # ondelete  = RESTRICTED para no permitir eliminar sensores con sismos guardados
     # relacion con sensores < seism
-    sensor = db.relationship('Sensor', backpopulates="seisms", userlist=False, single_parent=True)
+    sensor = db.relationship('Sensor', back_populates="seisms", uselist=False, single_parent=True)
 
     def __repr__(self):
         return '<User:  %r %r %r %r %r>' % (self.id, self.datetime, self.magnitude, self.verified, self.sensorid)
@@ -51,4 +52,3 @@ class Seism(db.Model):
                      magnitude=magnitude,
                      verified=verified,
                      sensorId=sensorId)
-        # sensorId=sensorId

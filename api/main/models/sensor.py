@@ -1,5 +1,5 @@
 from .. import db
-from . import UserModel
+from main.models.user import User as UserModel
 
 
 class Sensor(db.Model):
@@ -10,9 +10,9 @@ class Sensor(db.Model):
     port = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey('user.userId'), nulleable=True)  # TRUE
+    userId = db.Column(db.Integer, db.ForeignKey('user.userId'))  # like nullable = TRUE
     # relacion con user < sensores
-    user = db.relationship('User', back_populates="sensors", uselist=False, single_parent=True)
+    user = db.relationship('User', back_populates="sensors", passive_deletes="all", uselist=False, single_parent=True)
     # relacion con seisms > sensor
     seisms = db.relationship("Seism", back_populates="sensor", passive_deletes='all')
 
