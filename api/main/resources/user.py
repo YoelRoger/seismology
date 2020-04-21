@@ -24,7 +24,11 @@ class User(Resource):
     def delete(self, id):
         user = db.session.query(UserModel).get_or_404(id)
         db.session.delete(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception:
+            db.session.rollback()
+            return 'INTENTO ELIMINAR UN USR CON ASIGNACIONES', 409
         return "DELETE COMPLETE", 204
 
 

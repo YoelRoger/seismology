@@ -12,7 +12,7 @@ class Sensor(db.Model):
     active = db.Column(db.Boolean, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))  # like nullable = TRUE
     # relacion con user < sensores
-    user = db.relationship('User', back_populates="sensors", passive_deletes="all", uselist=False, single_parent=True)
+    user = db.relationship('User', back_populates="sensors", uselist=False, single_parent=True)
     # relacion con seisms > sensor
     seisms = db.relationship("Seism", back_populates="sensor", passive_deletes='all')
 
