@@ -22,7 +22,7 @@ class Sensor(db.Model):
 # CONVERTIR A JSON
     def to_json(self):
         # agrego verificacion para no pasar id a users inexistentes en json
-        self.user = db.session.query(UserModel).get_or_404(self.userId)
+        self.user = db.session.query(UserModel).get(self.userId)
         sensor_json = {
             'id': self.id,
             'name': str(self.name),

@@ -2,6 +2,8 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import SeismModel
+from random import uniform, randint  # importado para metodo POST
+import time  # importado para metodo POST
 
 
 # Recurso dato sismo
@@ -35,6 +37,23 @@ class VerifiedSeisms(Resource):
             verified_seisms.all()
             # seism -> verified_seism logica metal
         return jsonify({'verified_seisms': [verified_seism.to_json() for verified_seism in verified_seisms]})
+
+    # Agrego POST para facilitar el testeo y creacion de sismos
+
+    def post(self):
+        value_sensor = {
+            'datetime': time.strftime(r"%Y-%m-%d %H:%M:%S", time.localtime()),
+            'depth': randint(5, 250),
+            'magnitude': round(uniform(2.0, 5.5), 1),
+            'latitude': uniform(-180, 180),
+            'longitude': uniform(-90, 90),
+            'verified': True,
+            'sensorId': 2,
+        }
+        seism = SeismModel.from_json(value_sensor)
+        db.session.add(seism)
+        db.session.commit()
+        return seism.to_json(), 'AGREGADO SISMO  VERIFICA2', 201
 
 
 # Recurso Usismo
@@ -89,4 +108,19 @@ class UnverifiedSeisms(Resource):
             unverified_seisms.all()
         return jsonify({'unverified_seisms': [unverified_seism.to_json() for unverified_seism in unverified_seisms]})
 
-    # camb seism -> unverified_seism logica metal
+    # Agrego POST para facilitar testeo
+    def post(self):
+
+        value_sensor = {
+            'datetime': time.strftime(r"%Y-%m-%d %H:%M:%S", time.localtime()),
+            'depth': randint(5, 250),
+            'magnitude': round(uniform(2.0, 5.5), 1),
+            'latitude': uniform(-180, 180),
+            'longitude': uniform(-90, 90),
+            'verified': False,
+            'sensorId': 2,
+        }
+        seism = SeismModel.from_json(value_sensor)
+        db.session.add(seism)
+        db.session.commit()
+        return seism.to_json(), 'AGREGADO SISMO SIN VERIFICAR', 201
