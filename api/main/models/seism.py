@@ -10,7 +10,7 @@ class Seism(db.Model):
     latitude = db.Column(db.String(100), nullable=False)
     longitude = db.Column(db.String(100), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
-    sensorId = db.Column(db.Integer, db.ForeignKey('sensor.sensorId', ondelete='RESTRICT'), nullable=False)
+    sensorId = db.Column(db.Integer, db.ForeignKey('sensor.id', ondelete='RESTRICT'), nullable=False)
     # ondelete  = RESTRICTED para no permitir eliminar sensores con sismos guardados
     # relacion con sensores < seism
     sensor = db.relationship('Sensor', back_populates="seisms", uselist=False, single_parent=True)

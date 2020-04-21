@@ -21,15 +21,16 @@ class VerifiedSeisms(Resource):
 
     def get(self):
         filters = request.get_json().items()
-        verified_seisms = db.session.query(SeismModel).filter(SeismModel.verified == True).all()
+        # FILTROS AGREGADOS
+        verified_seisms = db.session.query(SeismModel).filter(SeismModel.verified == True)
         for key, value in filters:
             if key is "id_num":
                 verified_seisms = verified_seisms.filter(SeismModel.id_num == value)
-            elif key is "datetime":
+            if key is "datetime":
                 verified_seisms = verified_seisms.filter(SeismModel.datetime == value)
-            elif key is "magnitude":
+            if key is "magnitude":
                 verified_seisms = verified_seisms.filter(SeismModel.magnitude == value)
-            elif key is "sensor_id":
+            if key is "sensorId":
                 verified_seisms = verified_seisms.filter(SeismModel.sensor_id == value)
             verified_seisms.all()
             # seism -> verified_seism logica metal
@@ -74,15 +75,16 @@ class UnverifiedSeisms(Resource):
     # Obtener recurso
     def get(self):
         filters = request.get_json().items()
-        unverified_seisms = db.session.query(SeismModel).filter(SeismModel.verified == False).all()
+        # FILTROS AGREGADOS
+        unverified_seisms = db.session.query(SeismModel).filter(SeismModel.verified == False)
         for key, value in filters:
             if key is "id_num":
                 unverified_seisms = unverified_seisms.filter(SeismModel.id_num == value)
-            elif key is "datetime":
+            if key is "datetime":
                 unverified_seisms = unverified_seisms.filter(SeismModel.datetime == value)
-            elif key is "magnitude":
+            if key is "magnitude":
                 unverified_seisms = unverified_seisms.filter(SeismModel.magnitude == value)
-            elif key is "sensor_id":
+            if key is "sensorId":
                 unverified_seisms = unverified_seisms.filter(SeismModel.sensor_id == value)
             unverified_seisms.all()
         return jsonify({'unverified_seisms': [unverified_seism.to_json() for unverified_seism in unverified_seisms]})

@@ -10,7 +10,6 @@ class User(db.Model):
     # relacion con sensores < user
     sensors = db.relationship("Sensor", back_populates="user")
 
-
     def __repr__(self):
         return '<User: %r %r >' % (self.email, self.admin)
 
