@@ -44,12 +44,8 @@ class Sensors(Resource):
                 sensors = sensors.filter(SensorModel.userId == value)
             if key == "status":
                 sensors = sensors.filter(SensorModel.status == value)
-            if key == 'port':
-                sensors = sensors.filter(SensorModel.port == value)
             if key == 'active':
                 sensors = sensors.filter(SensorModel.active == value)
-            if key == 'name':
-                sensors = sensors.filter(SensorModel.name == value)
         sensors.all()
         return jsonify({'Sensors': [sensor.to_json() for sensor in sensors]})
 
