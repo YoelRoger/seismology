@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import SeismModel
+from main.models import SensorModel
 from random import uniform, randint  # importado para metodo POST
 import time  # importado para metodo POST
 
@@ -22,21 +23,43 @@ class VerifiedSeisms(Resource):
     # Obtener recurso
 
     def get(self):
+        page = 1
+        per_page = 25
+        max_per_page = 10000
+
+        # FILTROS
         filters = request.get_json().items()
-        # FILTROS AGREGADOS
         verified_seisms = db.session.query(SeismModel).filter(SeismModel.verified == True)
+
         for key, value in filters:
-            if key is "id_num":
-                verified_seisms = verified_seisms.filter(SeismModel.id_num == value)
             if key is "datetime":
                 verified_seisms = verified_seisms.filter(SeismModel.datetime == value)
             if key is "magnitude":
                 verified_seisms = verified_seisms.filter(SeismModel.magnitude == value)
-            if key is "sensorId":
-                verified_seisms = verified_seisms.filter(SeismModel.sensor_id == value)
-            verified_seisms.all()
-            # seism -> verified_seism logica metal
-        return jsonify({'verified_seisms': [verified_seism.to_json() for verified_seism in verified_seisms]})
+            # FILTRO POR NAME
+            if key is "sensor.name":
+                verified_seisms = verified_seisms.join(SeismModel.sensor).filter(SensorModel.name == value)
+
+            # ORDENAMIENTO
+
+            if key == "sort_by":
+                if value == "datetime.desc":
+                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.desc)
+                if value == "datetime.asc":
+                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.asc)
+                if value == "sensor.name.desc":
+                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.desc)
+                if value == "sensor.name.asc":
+                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.asc)
+
+            # PAGINACION
+            if key == "page":
+                page = int(value)
+            if key == "per_page":
+                per_page = int(value)
+
+        verified_seisms = verified_seisms.paginate(page, per_page, True, max_per_page)  # True no mostrar error
+        return jsonify({'verified_seisms': [verified_seism.to_json() for verified_seism in verified_seisms.item]})
 
     # Agrego POST para facilitar el testeo y creacion de sismos
 
