@@ -4,6 +4,7 @@ from .. import db
 from main.models import SensorModel
 from main.models import UserModel
 
+
 class Sensor(Resource):
 
     # Obtener recurso
@@ -59,26 +60,26 @@ class Sensors(Resource):
 
             if key == "sort_by":
                 if value == "name.desc":
-                    sensors = sensors.order_by(SensorModel.name.desc)
+                    sensors = sensors.order_by(SensorModel.name.desc())
                 if value == "name.asc":
-                    sensors = sensors.order_by(SensorModel.name.asc)
+                    sensors = sensors.order_by(SensorModel.name.asc())
                 if value == "userId.desc":
-                    sensors = sensors.order_by(SensorModel.user_id.desc)
+                    sensors = sensors.order_by(SensorModel.userId.desc())
                 if value == "userId.asc":
-                    sensors = sensors.order_by(SensorModel.user_id.asc)
+                    sensors = sensors.order_by(SensorModel.userId.asc())
                 if value == "active.desc":
-                    sensors = sensors.order_by(SensorModel.active.desc)
+                    sensors = sensors.order_by(SensorModel.active.desc())
                 if value == "active.asc":
-                    sensors = sensors.order_by(SensorModel.active.asc)
+                    sensors = sensors.order_by(SensorModel.active.asc())
                 if value == "status.desc":
-                    sensors = sensors.order_by(SensorModel.status.desc)
+                    sensors = sensors.order_by(SensorModel.status.desc())
                 if value == "status.asc":
-                    sensors = sensors.order_by(SensorModel.status.asc)
+                    sensors = sensors.order_by(SensorModel.status.asc())
             # ORDENAMIENTO POR EMAIL
                 if value == "user.email.desc":
-                    sensors = sensors.join(SensorModel.user).order_by(UserModel.email.desc)
+                    sensors = sensors.join(SensorModel.user).order_by(UserModel.email.desc())
                 if value == "user.email.asc":
-                    sensors = sensors.join(SensorModel.user).order_by(UserModel.email.asc)
+                    sensors = sensors.join(SensorModel.user).order_by(UserModel.email.asc())
 
             # PAGINACION
             if key == "page":

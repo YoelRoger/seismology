@@ -44,13 +44,13 @@ class VerifiedSeisms(Resource):
 
             if key == "sort_by":
                 if value == "datetime.desc":
-                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.desc)
+                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.desc())
                 if value == "datetime.asc":
-                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.asc)
+                    verified_seisms = verified_seisms.order_by(SeismModel.datetime.asc())
                 if value == "sensor.name.desc":
-                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.desc)
+                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.desc())
                 if value == "sensor.name.asc":
-                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.asc)
+                    verified_seisms = verified_seisms.join(SeismModel.sensor).order_by(SensorModel.name.asc())
 
             # PAGINACION
             if key == "page":
@@ -136,9 +136,9 @@ class UnverifiedSeisms(Resource):
         # ORDENAMIENTO
             if key == "sort_by":
                 if value == "datetime.desc":
-                    unverified_seisms = unverified_seisms.order_by(SeismModel.datetime.desc)
+                    unverified_seisms = unverified_seisms.order_by(SeismModel.datetime.desc())
                 if value == "datetime.asc":
-                    unverified_seisms = unverified_seisms.order_by(SeismModel.datetime)
+                    unverified_seisms = unverified_seisms.order_by(SeismModel.datetime.asc())
         # PAGINACION
 
             if key == "page":
