@@ -3,16 +3,19 @@ from flask import request, jsonify
 from .. import db
 from main.models import SensorModel
 from main.models import UserModel
+from main.authentication import admin_required
 
 
 class Sensor(Resource):
 
     # Obtener recurso
+    @admin_required
     def get(self, id):
         sensor = db.session.query(SensorModel).get_or_404(id)
         return sensor.to_json()
 
     # Eliminar recurso
+    @admin_required
     def delete(self, id):
         sensor = db.session.query(SensorModel).get_or_404(id)
         db.session.delete(sensor)
@@ -25,6 +28,7 @@ class Sensor(Resource):
         return "DELETE COMPLETE", 204
 
     # Modificar recurso
+    @admin_required
     def put(self, id):
         sensor = db.session.query(SensorModel).get_or_404(id)
         for key, value in request.get_json().items():
@@ -36,6 +40,7 @@ class Sensor(Resource):
 
 class Sensors(Resource):
     # Obtener recursoS
+    @admin_required
     def get(self):
         page = 1
         per_page = 25
@@ -91,6 +96,7 @@ class Sensors(Resource):
         return jsonify({'Sensors': [sensor.to_json() for sensor in sensors.items]})
 
     # Insertar recurso
+    @admin_required
     def post(self):
         sensor = SensorModel.from_json(request.get_json())
         db.session.add(sensor)
