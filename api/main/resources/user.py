@@ -46,7 +46,7 @@ class Users(Resource):
 
     # Insertar recurso
 
-    @admin_required
+    # @admin_required
     def post(self):
         user = UserModel.from_json(request.get_json())
         email_exists = db.session.query(UserModel).filter(UserModel.email == user.email).scalar() is not None

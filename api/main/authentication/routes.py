@@ -19,10 +19,10 @@ def login():
                 "access_token": access_token}
         return data, 200
     else:
-        return 'WRONG CRETDENTIALS',
+        return 'WRONG CREDENTIALS',
 
 
-@admin_required
+"""
 @auth.route('/register', methods=['POST'])
 def register():
     user = UserModel.from_json(request.get_json())
@@ -32,4 +32,4 @@ def register():
     else:
         db.session.add(user)
         db.session.commit()
-        return user.to_json(), 201
+        return user.to_json(), 201"""
