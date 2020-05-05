@@ -3,7 +3,8 @@ from main import db
 
 from flask import request, Blueprint
 from flask_jwt_extended import create_access_token
-from .decorators import admin_required
+from main.mail_methods.methods import sendMail
+
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
@@ -19,10 +20,9 @@ def login():
                 "access_token": access_token}
         return data, 200
     else:
-        return 'WRONG CREDENTIALS',
+        return 'WRONG CREDENTIALS', 401
 
 
-"""
 @auth.route('/register', methods=['POST'])
 def register():
     user = UserModel.from_json(request.get_json())
@@ -30,6 +30,15 @@ def register():
     if exists:
         return 'EMAIL DUPLICATED', 409
     else:
-        db.session.add(user)
-        db.session.commit()
-        return user.to_json(), 201"""
+        try:
+            db.session.add(user)
+            sent = sendMail(user.email, "Register,'mail/register", user=user)
+            if sent:
+                db.session.commit()
+            else:
+                db.session.rollback()
+                return str(sent), 502
+        except Exception as error:
+            db.session.rollback()
+            return str(error), 409
+        return user.to_json(), 201
