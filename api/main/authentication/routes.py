@@ -1,9 +1,10 @@
 from main.models import UserModel
 from main import db
-
-from flask import request, Blueprint
+from main.models import SensorModel
+from flask import request, Blueprint, jsonify
 from flask_jwt_extended import create_access_token
 from main.mail_methods.methods import sendMail
+from main.authentication.decorators import admin_required
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -42,3 +43,17 @@ def register():
             db.session.rollback()
             return str(error), 409
         return user.to_json(), 201
+
+
+@auth.route('/checksensors', methods=['GET'])
+@admin_required
+def checkStatus():
+    sensors = db.session.query(SensorModel).filter(SensorModel.active == True).filter(SensorModel.status == False).all()
+    if sensors:
+        admins = db.session.query(UserModel).filter(UserModel.admin == True).all()
+        if admins:
+            adminList = [admin.email for admin in admins]
+            sendMail(adminList, "DEACTIVATED SENSORS", "mail/sensor", sensorList=sensors)
+        return jsonify({'sensors': [sensor.to_json() for sensor in sensors]})
+    else:
+        return "NO DEACTIVATED SENSOR FOUND", 200

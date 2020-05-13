@@ -1,0 +1,7 @@
+HOLA ADMIN: {{user.email}}
+
+Sensores:
+
+{% for sensor in sensorList %}
+ ID: {{sensor.id}} NAME: {{sensor.name}}
+{% endfor %}
