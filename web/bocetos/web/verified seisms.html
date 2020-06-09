@@ -5,7 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- style CSS -->
+    <link rel="stylesheet" href="styles.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -49,9 +50,9 @@
   </head>
 
 
-  <body style="background-color:rgb(213, 226, 240)">
+  <body>
     <div class="container-fluid">
-        <div class="row" style="background-color:rgb(94, 147, 204)"> <!--breadcrumb-->
+        <div class="row"> <!--breadcrumb-->
              <div class="col-md-12">
                 <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
@@ -67,7 +68,7 @@
                     <label class="input-group-text" for="inputGroupSelect01">Filter</label>
                       </div>
                       <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Filter by</option>
+                        <option selected value="">Filter by</option>
                         <option value="1">datetime</option>
                         <option value="2">magnitude</option>
                         <option value="3">sensor.name</option>
@@ -78,7 +79,7 @@
                     <label class="input-group-text" for="inputGroupSelect01">Order by</label>
                       </div>
                       <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Order by</option>
+                        <option selected value="">Order by</option>
                         <option value="1">datetime.desc</option>
                         <option value="2">datetime.asc</option>
                         <option value="3">sensor.name.desc</option>
@@ -209,7 +210,7 @@
         </div><!--fin row info-->
 
             <footer class="page-footer font-small blue pt-4">
-                <div class="row" style="background-color:rgb(94, 147, 204); position: fixed; height: 80px; bottom: 0; width: 100%;"><!--footer-->
+                <div class="row"><!--footer-->
                         <div class="col-md-5"></div>
                     <div class="col-md-2" ><a href="#" class="text-dark"></a></div>
                         <div class="col-md-5"></div>

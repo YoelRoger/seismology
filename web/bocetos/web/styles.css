@@ -1,0 +1,21 @@
+.breadcrumb{
+    background-color:rgb(94, 147, 204) !important;
+    }
+body {
+  background-color: rgb(213, 226, 240) !important;
+}
+
+.breadcrumb-item{
+    color:rgb(227, 227, 227) !important;
+    }
+.breadcrumb-item > a{
+   color:white !important;
+    }
+.page-footer {
+   background-color:rgb(94, 147, 204);
+    position: fixed;
+     height: 80px;
+     bottom: 0;
+      width: 100%;
+    }
+.nav-item > bi {fill:white !important;}
