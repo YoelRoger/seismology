@@ -23,18 +23,18 @@
   </head>
 
 
-  <body style="background-color:rgb(237, 244, 255)">
+  <body>
     <div class="container-fluid">
 
-        <div class="row justify-content-center" ><!--log in-->
-
-                <div class="card m-4" style="background-color:rgba(66, 134, 244,0)">
-                    <div class="card-header " >
+        <div class="row col-md-12 justify-content-center" ><!--log in-->
+                <div class="col-sm-2"></div>
+                <div class="col-md-6 col-sm-8">
+                    <div class="card-header" >
                         <h3>Sign In</h3>
                     </div>
                     <div class="card-body">
                         <form>
-                            <div class="input-group form-group">
+                            <div class="input-group form-group"> <!--email box-->
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend">
                                         <svg class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
                                 <input type="email" class="form-control" placeholder="email@example.com">
 
                             </div>
-                            <div class="input-group form-group">
+                            <div class="input-group form-group"> <!--password box-->
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <svg class="bi bi-shield-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -55,26 +55,26 @@
                                 </div>
                                 <input type="password" class="form-control" placeholder="password">
                             </div>
-                            <div class="row align-items-center remember">
+                            <div class="row align-items-center remember"> <!--rememberme box-->
                                 <input type="checkbox">Remember Me
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="LOG IN" class="btn float-right login_btn">
+                                <input type="submit" value="LOG IN" class="btn float-right login_btn"> <!--log in bottom box-->
                             </div>
                         </form>
                     </div>
                 </div>
-
+                <div class="col-sm-2"></div>
 
 
         </div><!--fin row login-->
 
 
 
-            <footer>
-                <div class="row" style="background-color:rgb(75, 143, 250); position: fixed; height: 60px; bottom: 0; width: 100%;"><!--footer-->
+            <footer class="page-footer">
+                <div class="row "><!--footer-->
 
-                    <div class="col-md-4 m-4" ><a href="#" class="text-dark ">VERIFIED SEISMS</a></div>
+                    <div class="col-sm-4 m-4" ><a href="#" class="text-dark ">VERIFIED SEISMS</a></div>
 
                 </div><!--fin row footer-->
             </footer>

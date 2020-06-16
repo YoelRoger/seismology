@@ -19,3 +19,6 @@ body {
       width: 100%;
     }
 .nav-item > bi {fill:white !important;}
+
+.card-body {background-color:rgba(66, 134, 244,0) !important}
+.card-header {background-color:rgba(66, 134, 244,0) !important}
