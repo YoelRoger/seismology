@@ -1,4 +1,5 @@
 flask
+Flask-Breadcrumbs
 python-dotenv
 requests
-Flask-Breadcrumbs
+

@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 from flask_breadcrumbs import Breadcrumbs
+from .routes.main import main
+from .routes.unverified_seism import unverified_seism
 
 
 def create_app():
@@ -9,7 +11,7 @@ def create_app():
     Breadcrumbs(app=app)
     load_dotenv()
     app.config['API_URL'] = os.getenv('API_URL')
-    from main.routes import main, unverified_seism
-    app.register_blueprint(routes.main.main)
-    app.register_blueprint(routes.unverified_seism.unverified_seism)
+
+    app.register_blueprint(main)
+    app.register_blueprint(unverified_seism)
     return app
