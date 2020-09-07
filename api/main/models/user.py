@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, index=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
@@ -23,9 +22,9 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
     def __repr__(self):
-        return '<User: %r >' % self.email
+        return "<Users: %r %r %r>" % (self.id, self.email, self.admin)
 
-# CONVERTIR A JSON
+    # CONVERTIR A JSON
     def to_json(self):
         user_json = {
             'id': self.id,
@@ -35,13 +34,18 @@ class User(db.Model):
 
         return user_json
 
-    @staticmethod
+    def to_json_public(self):
+        user_json = {
+            'email': str(self.email),
+        }
+        return user_json
+
     def from_json(user_json):
         id = user_json.get('id')
         email = user_json.get('email')
         password = user_json.get('password')
         admin = user_json.get('admin')
         return User(id=id,
-                     email=email,
-                     plain_password=password,
-                     admin=admin)
+                    email=email,
+                    plain_password=password,
+                    admin=admin)

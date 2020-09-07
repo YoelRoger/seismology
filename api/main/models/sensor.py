@@ -17,25 +17,34 @@ class Sensor(db.Model):
     seisms = db.relationship("Seism", back_populates="sensor", passive_deletes='all')
 
     def __repr__(self):
-        return '<User: %r %r %r %r %r>' % (self.name, self.ip, self.port, self.status, self.active)
+        return "<Sensor: %r %r %r %r %r %r>" % (self.id, self.name, self.ip, self.port, self.status, self.active)
 
 # CONVERTIR A JSON
     def to_json(self):
         # agrego verificacion para no pasar id a users inexistentes en json
         self.user = db.session.query(UserModel).get(self.userId)
-        sensor_json = {
-            'id': self.id,
-            'name': str(self.name),
-            'ip': str(self.ip),
-            'port': int(self.port),
-            'status': bool(self.status),
-            'active': bool(self.active),
-            'userId': int(self.userId),
-            'user': self.user.to_json()  # paso el user completo asociado tambien
-        }
+        try:
+            sensor_json = {
+                'id': self.id,
+                'name': str(self.name),
+                'ip': str(self.ip),
+                'port': int(self.port),
+                'status': bool(self.status),
+                'active': bool(self.active),
+                'user': self.user.to_json()  # paso el user completo asociado tambien
+            }
+        except AttributeError:
+            sensor_json = {
+                'id': self.id,
+                'name': str(self.name),
+                'ip': str(self.ip),
+                'port': self.port,
+                'status': self.status,
+                'active': self.active,
+                'user': None,
+            }
         return sensor_json
 
-    @staticmethod
     def from_json(sensor_json):
         id = sensor_json.get('id')
         name = sensor_json.get('name')

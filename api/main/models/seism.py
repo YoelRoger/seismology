@@ -1,5 +1,6 @@
 from .. import db
 from . import SensorModel
+from datetime import datetime as dt
 
 
 class Seism(db.Model):
@@ -16,7 +17,7 @@ class Seism(db.Model):
     sensor = db.relationship('Sensor', back_populates="seisms", uselist=False, single_parent=True)
 
     def __repr__(self):
-        return '<User:  %r %r %r %r %r>' % (self.id, self.datetime, self.magnitude, self.verified, self.sensorid)
+        return '<Seism: %r %r %r %r %r %r %r>' % (self.id, self.datetime, self.depth, self.magnitude, self.latitude, self.longitude, self.verified)
 
     # CONVERTIR A JSON
     def to_json(self):
@@ -37,7 +38,7 @@ class Seism(db.Model):
     @staticmethod
     def from_json(seism_json):
         id = seism_json.get('id')
-        datetime = datetime.strptime(seism_json.get('datetime'), "%Y-%m-%d %H:%M:%S")
+        datetime = dt.strptime(seism_json.get('datetime'), "%Y-%m-%d %H:%M:%S")
         depth = seism_json.get('depth')
         latitude = seism_json.get('latitude')
         magnitude = seism_json.get('magnitude')
