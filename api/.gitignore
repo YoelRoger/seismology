@@ -1,9 +1,9 @@
-.idea
-bin
-include
-lib
-lib64
-share
+.idea/
+bin/
+include/
+lib/
+lib64/
+share/
 pyvenv.cfg
 .env
 **__pycache__

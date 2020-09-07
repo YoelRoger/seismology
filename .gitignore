@@ -1,1 +1,8 @@
 .idea
+.idea/
+bin/
+include/
+lib/
+lib64/*
+share/
+api/lib64

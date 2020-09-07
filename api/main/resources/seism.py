@@ -83,7 +83,7 @@ class VerifiedSeisms(Resource):
 # Recurso Usismo
 class UnverifiedSeism(Resource):
     # Obtener recurso
-    @jwt_required
+    # @jwt_required
     def get(self, id):
         seism = db.session.query(SeismModel).get_or_404(id)
         if not seism.verified:
@@ -92,7 +92,7 @@ class UnverifiedSeism(Resource):
             return "ACCESS DENIED", 403
 
     # Eliminar recurso
-    @jwt_required
+    # @jwt_required
     def delete(self, id):
         seism = db.session.query(SeismModel).get_or_404(id)
         if not seism.verified:
@@ -103,7 +103,7 @@ class UnverifiedSeism(Resource):
             return "ACCESS DENIED", 403
 
     # Modificar recurso
-    @jwt_required
+    # @jwt_required
     def put(self, id):
         seism = db.session.query(SeismModel).get_or_404(id)
         if not seism.verified:
@@ -119,7 +119,7 @@ class UnverifiedSeism(Resource):
 # Recurso UsismoS
 class UnverifiedSeisms(Resource):
     # Obtener recurso
-    @jwt_required
+    # @jwt_required
     def get(self):
         page = 1
         per_page = 10

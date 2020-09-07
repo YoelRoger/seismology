@@ -26,7 +26,7 @@ class Seism(db.Model):
         seism_json = {
             'id': self.id,
             'datetime': self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
-            'dept': int(self.depth),
+            'depth': int(self.depth),
             'magnitude': str(self.magnitude),
             'latitude': str(self.latitude),
             'longitude': str(self.longitude),

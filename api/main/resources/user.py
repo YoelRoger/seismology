@@ -9,13 +9,13 @@ from main.authentication import admin_required
 class User(Resource):
 
     # Obtener recurso
-    @admin_required
+    # @admin_required
     def get(self, id):
         user = db.session.query(UserModel).get_or_404(id)
         return user.to_json()
 
     # Modificar recurso
-    @admin_required
+    # @admin_required
     def put(self, id):
         user = db.session.query(UserModel).get_or_404(id)
         for key, value in request.get_json().items():
@@ -25,7 +25,7 @@ class User(Resource):
         return user.to_json(), 201
 
     # Eliminar recurso
-    @admin_required
+    # @admin_required
     def delete(self, id):
         user = db.session.query(UserModel).get_or_404(id)
         db.session.delete(user)
