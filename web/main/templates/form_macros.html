@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Macro que se encarga de mostrar los errores de validación -->
+{% macro show_error(field) %}
+    {% if field.errors %} <!--Si existen errores -->
+        <div class="alert alert-danger my-1" role="alert">
+            {% for error in field.errors %} <!--Recorrer errrores-->
+                {{ error }} <br> <!--Mostrar error -->
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
 
-</body>
-</html>
+{% macro show_checkbox(field) %}
+    <div class="checkbox">
+        <label>
+            {{ field(type='checkbox', **kwargs) }} {{ field.label }}
+        </label>
+    </div>
+{% endmacro %}
+
+<!-- Macro que se encarga de mostrar los campos del formulario -->
+{% macro show_field(field) %}
+    {{ field.label }} <!-- Mostrar etiqueta -->
+    {{ field(**kwargs) | safe }} <!-- Mostrar campo -->
+    {{ show_error(field) }} <!-- Llamar a macro que muestra el error -->
+{% endmacro %}
+
+<!-- Macro que se encarga de mostrar los campos tipo submit formulario -->
+{% macro show_submit(field) %}
+    {{ field(**kwargs) | safe }} <!-- Mostrar campo -->
+{% endmacro %}
+
+<!-- Macro que se encarga de mostrar los campos del Login -->
+{% macro show_placeholder(field) %}
+    {{ field(placeholder=field.label.text, **kwargs) | safe }} <!-- Mostrar campo -->
+    {{ show_error(field) }} <!-- Llamar a macro que muestra el error -->
+{% endmacro %}
