@@ -11,7 +11,11 @@
   <!-- Filtro -->
   <form class="form-inline my-2 my-lg-0 justify-content-center">
   <h1>Sensors</h1>
-    <a href="{{ url_for('sensor.create') }}" role="button" class="btn btn-outline-dark my-2 my-sm-1 center" type="submit"><i class="fas fa-save"></i> Add sensor </i></a>
+    <a href="{{ url_for('sensor.create') }}" role="button" class="btn btn-outline-dark my-2 my-sm-1 center" type="submit">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-post-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM4.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H4.5zm0 3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-7z"/>
+            </svg>
+        Add sensor </a>
     <select class="custom-select">
       <option selected>Select one option for filter</option>
       <option value="1">Name</option>
@@ -27,8 +31,6 @@
         <option value="2">Z-A</option>
       </select>
   </form>
-
-  </br>
 
 
   <div class="row justify-content-center">
