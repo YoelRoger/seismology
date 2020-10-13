@@ -5,6 +5,7 @@ from ..utilities.functions import sendRequest
 
 verified_seism = Blueprint("verified_seism", __name__, url_prefix="/verified-seism")
 
+
 @verified_seism.route("/")
 @register_breadcrumb(verified_seism, '.', 'Verified Seisms')
 def index():
@@ -12,6 +13,7 @@ def index():
     verified_seisms = json.loads(req.text)['Verified-Seism']
     title = "Verified Seisms List"
     return render_template("verified-seisms.html", title=title, verified_seisms=verified_seisms)
+
 
 @verified_seism.route("/view/<int:id>")
 @register_breadcrumb(verified_seism, '.view', 'View')
@@ -22,6 +24,7 @@ def view(id):
     verified_seism = json.loads(req.text)
     title = "Verified Seism View"
     return render_template("verified-seism.html", title=title, verified_seism=verified_seism)
+
 
 @verified_seism.route('delete/<int:id>')
 def delete(id):

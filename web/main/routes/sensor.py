@@ -15,7 +15,7 @@ def index():
     req = sendRequest(method="get", url="/sensors", auth=True)
     sensors = json.loads(req.text)['Sensors']
     title = "Sensors"
-    return render_template("sensors.html",title=title,sensors=sensors)
+    return render_template("sensors.html", title=title, sensors=sensors)
 
 
 @sensor.route("/view/<int:id>")
