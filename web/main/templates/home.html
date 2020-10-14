@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main.html" %}
 
-</body>
-</html>
+<!-- Importar el archivo de macros -->
+{% import "macros.html" as macro %}
+
+<!-- Define el contenido -->
+{% block content %}
+  <!-- Contenido -->
+<main>
+	<center><h1>Select an Option</h1></center>
+
+
+	<div class="row justify-content-center">
+		<!--{% if current_user.admin %}-->
+	  <div class="col-sm-auto">
+
+		<div class="card">
+		  <div class="card-body">
+		<img src="/static/img/sensor.jpeg" width="250" height="250" class="img-circle">
+			<p class="card-text"></p>
+		  </div>
+             <a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('sensor.index')}}"><h3>SENSORS</h3></a>
+		</div>
+	  </div>
+		<!--{% endif %}-->
+
+	  <div class="col-sm-auto">
+		<div class="card">
+		  <div class="card-body">
+		<img src="/static/img/seism.png"  width="250" height="250">
+			<p class="card-text"></p>
+		  </div>
+            <a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('verified_seism.index')}}"><h3>VERIFIED SEISMS</h3></a>
+		</div>
+	  </div>
+
+		<!--{% if current_user.admin %}-->
+	  <div class="col-sm-auto">
+		  <div class="card">
+		    <div class="card-body">
+		  <img src="/static/img/users2.jpeg" width="250" height="250" class="img-circle">
+			  <p class="card-text"></p>
+
+		    </div>
+               <a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('user.index')}}"><h3>USERS</h3></a>
+		  </div>
+
+	  </div>
+	<!--{% endif %}-->
+		<!--{% if current_user.is_authenticated %}-->
+	  <div class="col-sm-auto">
+		<div class="card">
+		  <div class="card-body">
+		<img src="/static/img/unverifiedseism.png"  width="250" height="250" class="img-circle">
+			<p class="card-text"></p>
+		  </div>
+
+				<a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('unverified_seism.index')}}">UNVERIFIED SEISMS</a>
+
+		</div>
+
+	  </div>
+	<!--{% endif %}-->
+	</div>
+
+
+</main>
+{% endblock %}

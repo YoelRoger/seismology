@@ -24,6 +24,6 @@ def create_app():
     app.register_blueprint(routes.unverified_seism.unverified_seism)
     app.register_blueprint(routes.verified_seism.verified_seism)
     app.register_blueprint(routes.sensor.sensor)
-    app.register_blueprint(routes.user.user)
+    """app.register_blueprint(routes.user.user)"""
     app.register_blueprint(routes.home.home)
     return app
