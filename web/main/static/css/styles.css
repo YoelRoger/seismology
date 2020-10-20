@@ -1,27 +1,33 @@
+.header {
+    background-color:rgb(39, 57, 81) !important;
+    }
+
+
 .breadcrumb{
-    background-color:rgb(58, 59, 61) !important;
+    background-color:rgb(59, 94, 184) !important;
     }
 
 body {
-  background-color: rgb(24, 25, 27) !important;
+
+   background-color: rgb(24, 25, 27) !important;
 }
 
 .breadcrumb-item{
-    color:rgb(227, 227, 227) !important;
+    color:rgb(255, 255,255) !important;
     }
+
 .breadcrumb-item > a{
-   color:white !important;
+   color:grey !important;
     }
+
 .page-footer {
-   background-color:rgb(11, 12, 14);
+   background-color:rgb(59, 94, 184);
     position: fixed;
      height: 80px;
      bottom: 0;
       width: 100%;
     }
-.nav-item > bi {fill:white !important;}
-
-.nav-item:focus .nav-link {color:rgb(255,255,255) !important;}
 
 .card-body {background-color:rgba(66, 134, 244,0) !important}
 .card-header {background-color:rgba(66, 134, 244,0) !important}
+
