@@ -37,12 +37,14 @@ def view(id):
     sensor = json.loads(req.text)
     title = "Sensor View"
     return render_template("sensor-view.html", title=title, sensor=sensor)
+
+
 @sensor.route("/add-sensor", methods=["GET", "POST"])
 @login_required
 @admin_required
 @register_breadcrumb(sensor, ".add", "Add Sensor")
 def create():
-    form = SensorForm()# Instanciar formulario
+    form = SensorForm()  # Instanciar formulario
     req = sendRequest(method="get", url="/users", auth=True)
     form.userId.choices=[(int(user["id"]), user["email"]) for user in json.loads(req.text)["Users"]]
     form.userId.choices.insert(0,[0, "Select one User"])
@@ -60,3 +62,50 @@ def create():
 
         return redirect(url_for("sensor.index")) # Redirecciona a la lista de sensores
     return render_template("add-sensor.html", form=form)
+
+
+@sensor.route("/edit/<int:id>", methods=["GET", "POST"])
+@login_required
+@admin_required
+@register_breadcrumb(sensor, ".edit", "Edit Sensor")
+def edit(id):
+    form = SensorEdit()
+    req = sendRequest(method="get", url="/users", auth=True)
+    form.userId.choices = [(int(user["id"]), user["email"]) for user in json.loads(req.text)["Users"]]
+    form.userId.choices.insert(0, [0, "Select one User"])
+    if not form.is_submitted():
+        req = sendRequest(method="get", url="/sensor/" + str(id), auth=True)
+        if (req.status_code == 404):
+            flash("Sensor not found","danger")
+            return redirect(url_for("sensor.index"))
+        sensor = json.loads(req.text)
+        # cargar datos
+        form.name.data = sensor["name"]
+        form.ip.data = sensor["ip"]
+        form.port.data = sensor["port"]
+        form.status.data = sensor["status"]
+        form.active.data = sensor["active"]
+
+    if form.validate_on_submit():
+        sensor = {
+            "name": form.name.data,
+            "ip": form.ip.data,
+            "port": form.port.data,
+            "status": form.status.data,
+            "active": form.active.data,
+            "userId": form.userId.data
+        }
+        data = json.dumps(sensor)
+        req = sendRequest(method="put", url="/sensor/" + str(id), data=data, auth=True)
+        flash("Sensor has been edited","success")
+        return redirect(url_for("sensor.index"))
+    return render_template("edit-sensor.html", form=form, id=id)
+
+
+@sensor.route('delete/<int:id>')
+@login_required
+@admin_required
+def delete(id):
+    req = sendRequest(method="delete", url="/sensor/" + str(id), auth=True)
+    flash("Sensor has been deleted", "danger")
+    return redirect(url_for('sensor.index'))
