@@ -14,6 +14,8 @@ class User(UserMixin):  # Clase que contendrá los datos del usuario logueado
 # Método que le indica a LoginManager como obtener los datos del usuario logueado
 # En nuestro caso al trabajar con JWT los datos se obtendran de los claims del Token
 # que ha sido guardado en una cookie en el browser
+
+
 @login_manager.request_loader
 def load_user(request):
     # Verificar si la cookie ha sido cargada
