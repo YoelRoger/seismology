@@ -29,7 +29,7 @@ def load_user(request):
                 user = User(user_data["id"], user_data["email"], user_data["admin"])
                 return user
             except KeyError:
-                return redirect(url_for('login.index'))
+                return redirect(url_for('login.login'))
 
         except jwt.exceptions.InvalidTokenError:
             print('Invalid Token.')
@@ -43,7 +43,7 @@ def load_user(request):
 def unauthorized_callback():
     flash('You must log in to continue.','warning')
     # Redireccionar a la página que contiene el formulario de login
-    return redirect(url_for('login.index'))
+    return redirect(url_for('login.login'))
 
 
 # Define la función de verificación de admin para las rutas

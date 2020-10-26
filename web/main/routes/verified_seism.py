@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, current_app, redirect, url_for, flash
-import json
+import json , requests
 from flask_breadcrumbs import register_breadcrumb
 from ..utilities.functions import sendRequest
 
@@ -9,8 +9,8 @@ verified_seism = Blueprint("verified_seism", __name__, url_prefix="/verified-sei
 @verified_seism.route("/")
 @register_breadcrumb(verified_seism, '.', 'Verified Seisms')
 def index():
-    req = sendRequest(method="get", url="/verified-seisms", )
-    verified_seisms = json.loads(req.text)['Verified-Seism']
+    req = sendRequest(method="get", url="verified-seisms", )
+    verified_seisms = json.loads(req.text)['verified_seisms']
     title = "Verified Seisms List"
     return render_template("verified-seisms.html", title=title, verified_seisms=verified_seisms)
 
@@ -23,7 +23,7 @@ def view(id):
         return redirect(url_for("verified_seism.index"))
     verified_seism = json.loads(req.text)
     title = "Verified Seism View"
-    return render_template("verified-seism.html", title=title, verified_seism=verified_seism)
+    return render_template("verified_seism.html", title=title, verified_seism=verified_seism)
 
 
 @verified_seism.route('delete/<int:id>')

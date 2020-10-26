@@ -39,7 +39,7 @@ class User(Resource):
 
 class Users(Resource):
     # Obtener recurso
-    @admin_required
+    # @admin_required
     def get(self):
         users = db.session.query(UserModel).all()
         return jsonify({'Users': [user.to_json() for user in users]})
