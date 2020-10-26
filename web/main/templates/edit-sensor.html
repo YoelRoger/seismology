@@ -1,10 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Hereda del template main -->
+{% extends "main.html" %} {# Herencia #}
 
-</body>
-</html>
+<!-- Importar el archivo de macros -->
+{% import "macros.html" as macro %}
+
+<!-- Importar macros de formulario -->
+{% from "form_macros.html" import show_field, show_submit %}
+
+<!-- Define el contenido -->
+{% block content %}
+<!-- Contenido -->
+<main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 d-none d-md-block"></div>
+           <div class="col-md-8">
+            <h1>New Sensor</h1>
+            <form method="POST" action="{{ url_for('sensor.edit', id = id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                <div class="form-group">
+                    <div class="col-auto">
+                        {{ show_field(form.name, class="form-control") }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-auto">
+                        {{ show_field(form.status, class="form-check-label") }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-auto">
+                        {{ show_field(form.ip, class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-auto">
+                        {{ show_field(form.port, class="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-group align-items-center">
+                    <div class="col-auto">
+                        {{ show_field(form.active, class="form-check-label") }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-auto">
+                        {{ show_field(form.userId, class="form-control") }}
+
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <!-- macro para mostrar el campo de submit -->
+                    {{ show_submit(form.submit, class="btn btn-success") }}
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 d-none d-md-block"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+
