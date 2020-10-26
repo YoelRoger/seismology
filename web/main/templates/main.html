@@ -42,7 +42,7 @@
  <header>
 
     <!-- MENU -->
-     <div class="row mx-auto">
+     <div class="row col-sm-12 my-menu mx-auto">
         <nav class="navbar navbar-expand-lg navbar-dark">
               <a class="navbar-brand" href="javascript:history.back()">
                   <svg class="bi bi-arrow-left-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -137,9 +137,9 @@
  <footer class="page-footer font-small pt-4 d-flex">
                 <div class="row container-fluid text-center"><!--footer links-->
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-3"><a href="{{url_for('verified_seism.index')}}" class="text-dark"> VERIFIED SEISMS</a></div>
-                        <div class="col-sm-4" ><a href="{{url_for('unverified_seism.index')}}" class="text-dark"> SENSORS</a></div>
-                        <div class="col-sm-3"><a href="#" class="text-dark"> UNVERIFIED SEISMS</a></div>
+                        <div class="col-sm-3"><a href="{{url_for('verified_seism.index')}}" class="text-light"> VERIFIED SEISMS</a></div>
+                        <div class="col-sm-4" ><a href="{{url_for('sensor.index')}}" class="text-light"> SENSORS</a></div>
+                        <div class="col-sm-3"><a href="{{url_for('unverified_seism.index')}}" class="text-light"> UNVERIFIED SEISMS</a></div>
                         <div class="col-sm-1"></div>
                 </div><!--fin row footer-->
  </footer>

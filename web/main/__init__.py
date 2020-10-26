@@ -17,13 +17,13 @@ def create_app():
     csrf = CSRFProtect(app)
     app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
     login_manager.init_app(app)
-    from main.routes import main, unverified_seism, user, verified_seism, login, sensor, home
+    from .routes import main, unverified_seism, user, verified_seism, login, sensor, home
 
     app.register_blueprint(routes.login.log)
     app.register_blueprint(routes.main.main)
     app.register_blueprint(routes.unverified_seism.unverified_seism)
     app.register_blueprint(routes.verified_seism.verified_seism)
     app.register_blueprint(routes.sensor.sensor)
-    """app.register_blueprint(routes.user.user)"""
+    app.register_blueprint(routes.user.user)
     app.register_blueprint(routes.home.home)
     return app
