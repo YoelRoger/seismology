@@ -16,9 +16,7 @@ def login():
 
     if correct_password:
         access_token = create_access_token(identity=user)
-        data = {"id": user.id,
-                "email": user.email,
-                "access_token": access_token}
+        data = '{"id":"'+str(user.id)+'", "email":"'+str(user.email)+'", "access_token":"'+access_token+'"}'
         return data, 200
     else:
         return 'WRONG CREDENTIALS', 401
@@ -33,7 +31,7 @@ def register():
     else:
         try:
             db.session.add(user)
-            sent = sendMail(user.email, "Register,'mail/register", user=user)
+            sent = sendMail(user.email, "Register", 'mail/register', user=user)
             if sent:
                 db.session.commit()
             else:

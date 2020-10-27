@@ -10,6 +10,7 @@ verified_seism = Blueprint("verified_seism", __name__, url_prefix="/verified-sei
 @register_breadcrumb(verified_seism, '.', 'Verified Seisms')
 def index():
     req = sendRequest(method="get", url="verified-seisms", )
+    print ("REQUESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT", req)
     verified_seisms = json.loads(req.text)['verified_seisms']
     title = "Verified Seisms List"
     return render_template("verified-seisms.html", title=title, verified_seisms=verified_seisms)

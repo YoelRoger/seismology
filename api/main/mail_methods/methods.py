@@ -11,6 +11,6 @@ def sendMail(addressee, subject, template, **kwargs):
         # msg.html = render_template(template + '.html', **kwargs)
         result = mailsender.send(msg)
     except SMTPException as e:
-        print(str(e))
+        print("ERROR OCURRIDO AL ENVIAR MAIL", str(e))
         return "MAIL DELIVER FAILED"
     return True

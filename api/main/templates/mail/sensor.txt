@@ -1,4 +1,4 @@
-HOLA ADMIN: {{user.email}}
+HOLA ADMIN
 
 Sensores:
 
