@@ -9,7 +9,7 @@
 
 body {
   /* The image used */
-  background-image: url("fondo2.jpg");
+  background-image: url("fondo3.jpg");
 
   /* Full height */
 
@@ -53,6 +53,6 @@ body {
 }
 
 .card {background-color:rgba(178, 182, 188,0.4) !important}
-.card-body {background-color:rgba(178, 182, 188,0.4) !important}
-.card-header {background-color:rgba(46, 136, 254,50) !important}
+.card-body {background-color:rgba(178, 182, 188,0) !important}
+.card-header {background-color:rgba(46, 136, 254,0.5) !important}
 

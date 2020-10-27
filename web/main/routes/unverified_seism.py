@@ -10,7 +10,7 @@ unverified_seism = Blueprint("unverified_seism", __name__, url_prefix="/unverifi
 
 
 @unverified_seism.route("/")
-#@login_required
+@login_required
 @register_breadcrumb(unverified_seism, '.', 'Unverified Seisms')
 def index():
     r = requests.get(current_app.config["API_URL"]+"/unverified-seisms", headers={"content-type":"application/json"},
@@ -21,7 +21,7 @@ def index():
 
 
 @unverified_seism.route("/view/<int:id>")
-#@login_required
+@login_required
 @register_breadcrumb(unverified_seism, '.view', 'View')
 def view(id):
     r = requests.get(current_app.config["API_URL"]+"/unverified-seism/"+str(id),headers={"content-type":"application/json"})
@@ -33,7 +33,7 @@ def view(id):
 
 
 @unverified_seism.route("/edit/<int:id>", methods=["GET","POST"])
-#@login_required
+@login_required
 @register_breadcrumb(unverified_seism, ".edit", "Edit Unverified Seism")
 def edit(id):
     form = UnverifiedSeismEdit()

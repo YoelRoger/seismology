@@ -12,7 +12,7 @@ log = Blueprint("login", __name__, url_prefix="/")
 
 
 @log.route("/login", methods=["POST", "GET"])
-@register_breadcrumb(log, ".", 'login')
+# @register_breadcrumb(log, ".", 'login')
 def login():
     url = current_app.config['API_URL'] + '/auth/login'
     loginForm = LoginForm()
@@ -59,4 +59,5 @@ def logout():
     # Desloguear usuario
     logout_user()
     # Realizar request
+    flash('Logged Out', 'danger')
     return req

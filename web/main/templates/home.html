@@ -12,6 +12,7 @@
 
 	<div class="row justify-content-center">
 	  <div class="col-sm-auto">
+		{% if current_user.admin %}
 
 		<div class="card">
 			<a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('sensor.index')}}">
@@ -22,7 +23,9 @@
              <h3>SENSORS</h3>
 			</a>
 		</div>
+		  {% endif %}
 	  </div>
+
 
 	  <div class="col-sm-auto">
 		<div class="card">
@@ -36,7 +39,10 @@
 		</div>
 	  </div>
 
+
 	  <div class="col-sm-auto">
+		  {% if current_user.admin %}
+
 		  <div class="card">
 			  <a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('user.index')}}">
 		    <div class="card-body">
@@ -47,9 +53,13 @@
                <h3>USERS</h3>
 			  </a>
 		  </div>
+		  {% endif %}
+
 
 	  </div>
 	  <div class="col-sm-auto">
+		  {% if current_user.is_authenticated %}
+
 		<div class="card">
 			<a type="button" class="btn btn-sm" data-toggle="tooltip" href="{{url_for('unverified_seism.index')}}">
 		  <div class="card-body">
@@ -59,6 +69,7 @@
 				<h3>UNVERIFIED SEISMS</h3>
 			</a>
 		</div>
+			{% endif %}
 
 	  </div>
 	</div>
