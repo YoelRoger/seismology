@@ -33,7 +33,7 @@ def load_user(request):
 
         except jwt.exceptions.InvalidTokenError:
             print('Invalid Token.')
-            flash('TOKEN EXPIRED OR INVALID', 'warning')
+            flash('SESSION EXPIRED/INVALID/DELETED', 'warning')
             return redirect(url_for('login.login'))
 
 

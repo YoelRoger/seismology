@@ -40,6 +40,7 @@ def login():
             req.set_cookie("access_token", user_data.get(
                 "access_token"), httponly=True)
             # Realizar la request
+            flash("Logged In", "info")
             return req
 
         else:
