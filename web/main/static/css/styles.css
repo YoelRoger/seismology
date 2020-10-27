@@ -12,12 +12,11 @@ body {
   background-image: url("fondo2.jpg");
 
   /* Full height */
-  height: 100%;
 
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
 
    background-color: rgb(24, 25, 27) !important;
    margin-bottom: 10px;
