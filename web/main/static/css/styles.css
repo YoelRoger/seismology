@@ -20,10 +20,10 @@ body {
    color:grey !important;
     }
 
-.page-footer {
+.nav-footer {
    background-color:rgb(59, 94, 184);
-    position: fixed;
-     height: 80px;
+
+     height: 70px;
      bottom: 0;
      left: 0;
      bottom: 0;

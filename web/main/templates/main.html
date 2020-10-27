@@ -129,12 +129,35 @@
  </div> <!--fin row breadcrumb-->
 {% endblock %}
 
-  {% block content %}
+{% block flash %}
+  <div class="container-fluid">
+    <div style="position: relative">
+      <div style="position: absolute; top: 0; right: 0;">
+        <div class="col-auto mx-auto">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
-  {% endblock %}
+{% block content %}
+
+{% endblock %}
 
  {% block footer %}
- <footer class="page-footer font-small pt-4">
+ <footer class="nav-footer navbar-fixed-bottom font-small pt-4">
                 <div class="row container-fluid text-center"><!--footer links-->
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3"><a href="{{url_for('verified_seism.index')}}" class="text-light"> VERIFIED SEISMS</a></div>
