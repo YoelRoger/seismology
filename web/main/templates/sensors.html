@@ -9,34 +9,37 @@
 <!-- Contenido -->
 
   <!-- Filtro -->
-  <form class="form-inline my-2 my-lg-0 justify-content-center">
-  <h1>Sensors</h1>
-    <a href="{{ url_for('sensor.create') }}" role="button" class="btn btn-outline-dark my-2 my-sm-1 center" type="submit">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-post-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM4.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H4.5zm0 3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-7z"/>
-            </svg>
-        Add sensor </a>
-    <select class="custom-select">
-      <option selected>Select one option for filter</option>
-      <option value="1">Name</option>
-      <option value="2">Status</option>
-      <option value="3">Active</option>
-      <option value="4">User Associated</option>
-    </select>
-    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Filter</button>
-    <i class="fas fa-sort-alpha-down fa-2x fa-lg"></i>
-      <select class="custom-select">
-        <option selected>Sort by</option>
-        <option value="1">A-Z</option>
-        <option value="2">Z-A</option>
+<div class="justify-content-center text-center">
+<h1>Sensors</h1>
+</div>
+  <form class="form-inline my-2  my-lg-2 justify-content-center">
+      <a href="{{ url_for('sensor.create') }}" role="button" class="btn btn-success my-2 my-sm-1 center" type="submit">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-post-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM4.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H4.5zm0 3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-7z"/>
+              </svg>
+          Add sensor </a>
+      <select class="custom-select mx-2 ">
+        <option selected>Select one option for filter</option>
+        <option value="1">Name</option>
+        <option value="2">Status</option>
+        <option value="3">Active</option>
+        <option value="4">User Associated</option>
       </select>
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Filter</button>
+      <i class="fas fa-sort-alpha-down fa-2x fa-lg"></i>
+        <select class="custom-select mx-2">
+          <option selected>Sort by</option>
+          <option value="1">A-Z</option>
+          <option value="2">Z-A</option>
+        </select>
   </form>
+
 
 
   <div class="row justify-content-center">
     <div class="col-md-auto d-none d-md-block"></div>
     <div class="col-md-auto">
-      <table class="table table-bordered table-responsive">
+      <table class="table table-dark table-bordered table-hover table-responsive">
         <thead class="thead">
 
 

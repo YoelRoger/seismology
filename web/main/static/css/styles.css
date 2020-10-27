@@ -29,14 +29,16 @@ body {
      bottom: 0;
       width: 100%;
     }
-    .footer {
-  position: fixed;
-
-
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
+#footer {
+    bottom: 0;
+    height: 2em;
+    left: 0;
+    position:relative;
+	text-align:center;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
 }
 
 .card {background-color:rgba(178, 182, 188,25) !important}

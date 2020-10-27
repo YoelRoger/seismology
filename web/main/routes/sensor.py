@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from flask_breadcrumbs import register_breadcrumb
-import json
+import json, requests
 
 from ..forms.sensor import SensorForm, SensorEdit
-from ..utilities.functions import sendRequest
 
 from .auth import admin_required
 from flask_login import login_required
@@ -15,19 +14,21 @@ sensor = Blueprint("sensor", __name__, url_prefix="/sensor")
 
 
 @sensor.route("/")
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 @register_breadcrumb(sensor, ".", 'Sensors')
 def index():
-    req = sendRequest(method="get", url="/sensors", auth=True)
+    req = requests.get(current_app.config["API_URL"] + "/sensors", headers={"content-type": "application/json"},
+                       json={})
+    print("LA REQ PAPA", req)
     sensors = json.loads(req.text)['Sensors']
     title = "Sensors"
     return render_template("sensors.html", title=title, sensors=sensors)
 
 
 @sensor.route("/view/<int:id>")
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 @register_breadcrumb(sensor, '.view', 'View')
 def view(id):
     req = sendRequest(method="get", url="/sensor/" + str(id), auth=True)
@@ -40,8 +41,8 @@ def view(id):
 
 
 @sensor.route("/add-sensor", methods=["GET", "POST"])
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 @register_breadcrumb(sensor, ".add", "Add Sensor")
 def create():
     form = SensorForm()  # Instanciar formulario
@@ -65,8 +66,8 @@ def create():
 
 
 @sensor.route("/edit/<int:id>", methods=["GET", "POST"])
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 @register_breadcrumb(sensor, ".edit", "Edit Sensor")
 def edit(id):
     form = SensorEdit()
@@ -103,8 +104,8 @@ def edit(id):
 
 
 @sensor.route('delete/<int:id>')
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 def delete(id):
     req = sendRequest(method="delete", url="/sensor/" + str(id), auth=True)
     flash("Sensor has been deleted", "danger")
