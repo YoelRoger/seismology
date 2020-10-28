@@ -22,7 +22,11 @@ body {
 
    background-color: rgba(24, 25, 27,0.4) !important;
 }
-
+.home-menu-centered{
+    height: 10em;
+  display: flex;
+  align-items: center
+}
 .breadcrumb-item{
     color:rgb(255, 255,255) !important;
     }
