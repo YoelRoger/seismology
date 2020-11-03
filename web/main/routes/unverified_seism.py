@@ -15,7 +15,7 @@ unverified_seism = Blueprint("unverified_seism", __name__, url_prefix="/unverifi
 def index():
     r = requests.get(current_app.config["API_URL"]+"/unverified-seisms", headers={"content-type":"application/json"},
                      json={})
-    unverified_seisms = json.loads(r.text)["unverified_seisms"]
+    unverified_seisms = json.loads(r.text)["Unverified-Seisms"]
     title = "Unverified Seisms List"
     return render_template("unverified-seisms.html", title=title, unverified_seisms=unverified_seisms)
 

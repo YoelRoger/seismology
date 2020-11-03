@@ -6,7 +6,7 @@ from main.models import SeismModel
 from main.models import SensorModel
 from random import uniform, randint  # importado para metodo POST
 import time, datetime  # importado para metodo POST
-from main.auth.decorators import admin_required
+from main.authentication import admin_required
 
 
 # Recurso dato sismo

@@ -3,7 +3,6 @@ from main.models.user import User as UserModel
 
 
 class Sensor(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     ip = db.Column(db.String(100), nullable=False)
@@ -19,7 +18,7 @@ class Sensor(db.Model):
     def __repr__(self):
         return "<Sensor: %r %r %r %r %r %r>" % (self.id, self.name, self.ip, self.port, self.status, self.active)
 
-# CONVERTIR A JSON
+    # CONVERTIR A JSON
     def to_json(self):
         # agrego verificacion para no pasar id a users inexistentes en json
         self.user = db.session.query(UserModel).get(self.userId)
@@ -60,3 +59,11 @@ class Sensor(db.Model):
                       status=status,
                       active=active,
                       userId=userId)
+
+    def to_json_public(self):
+        sensor_json = {
+            'id': self.id,
+            'name': str(self.name),
+        }
+
+        return sensor_json
