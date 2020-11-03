@@ -5,6 +5,7 @@ from main.models import SensorModel
 from main.models import UserModel
 from main.authentication import admin_required
 from main.utilities.sensor_sockets import check_sensor
+from termcolor import cprint
 
 
 class Sensor(Resource):
@@ -113,7 +114,6 @@ class Sensors(Resource):
 class SensorsInfo(Resource):
     # obtener lista de recursos
     def get(self):
-        print("ERROR ANTESinf")
         sensors = db.session.query(SensorModel)
         return jsonify({'Sensors': [sensor.to_json_public() for sensor in sensors],
 
@@ -122,6 +122,6 @@ class SensorsInfo(Resource):
 
 class SensorStatus(Resource):
     def get(self, id):
-        print("++++++++++++")
+        cprint("++++++++++++++++++++++++++++", "yellow")
         check_sensor(id)
         return "", 200
