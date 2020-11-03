@@ -53,6 +53,9 @@ def create_app():
 
     api.add_resource(resources.UserResource, '/user/<id>')
     api.add_resource(resources.UsersResource, '/users')
+
+    api.add_resource(resources.SensorsInfoResource, '/sensors-info')
+    api.add_resource(resources.SensorStatus, "/sensor/check/<id>")
     api.init_app(app)
 
     from main.authentication import authBlueprint
