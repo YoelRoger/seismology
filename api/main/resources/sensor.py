@@ -46,14 +46,11 @@ class Sensors(Resource):
     # Obtener recursoS
     # @admin_required
     def get(self):
-        print("ERROR ANTES")
         page = 1
-        per_page = 25
-        max_per_page = 50
-        print("ERROR DURANTES")
+        per_page = 15
+        max_per_page = 15
         # FILTROS
         filters = request.get_json().items()
-        print("ERROR DURAANTES2")
         sensors = db.session.query(SensorModel)
 
         for key, value in filters:
