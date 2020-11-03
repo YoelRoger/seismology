@@ -4,6 +4,8 @@
 <!-- Importar el archivo de macros -->
 {% import "macros.html" as macro %}
 
+{% from "form_macros.html" import show_field, show_submit, show_placeholder %}
+
 <!-- Define el contenido -->
 {% block content %}
 <!-- Contenido -->
@@ -12,28 +14,33 @@
 <div class="justify-content-center text-center">
 <h1>Sensors</h1>
 </div>
-  <form class="form-inline my-2  my-lg-2 justify-content-center">
-      <a href="{{ url_for('sensor.create') }}" role="button" class="btn btn-success my-2 my-sm-1 center" type="submit">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-post-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <form class="form-inline my-2  my-lg-2 justify-content-center" method="GET" action="{{ url_for('sensor.index') }}">
+
+             <div class="form-group col-md-auto">
+                  {{ show_placeholder(filter.name , class='form-control')}}
+              </div>
+              <div class="form-group col-md-auto">
+                  {{ show_field(filter.status , class='form-check-label')}}
+              </div>
+              <div class="form-group col-md-auto">
+                  {{ show_field(filter.active , class='form-check-label')}}
+              </div>
+              <div class="form-group col-md-auto">
+                  {{ show_placeholder(filter.userId , class='form-control')}}
+              </div>
+              <div class="form-group col-md-auto">
+                  {{show_submit(filter.submit, class='btn btn-success')}}
+              </div>
+            </div>
+    </form>
+    <div class="justify-content-center text-center my-2">
+          <a href="{{ url_for('sensor.create') }}" role="button" class="btn  btn-success my-2 my-sm-1 center" type="submit">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-post-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zM4.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1H4.5zm0 3a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-7z"/>
               </svg>
-          Add sensor </a>
-      <select class="custom-select mx-2 ">
-        <option selected>Select one option for filter</option>
-        <option value="1">Name</option>
-        <option value="2">Status</option>
-        <option value="3">Active</option>
-        <option value="4">User Associated</option>
-      </select>
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Filter</button>
-      <i class="fas fa-sort-alpha-down fa-2x fa-lg"></i>
-        <select class="custom-select mx-2">
-          <option selected>Sort by</option>
-          <option value="1">A-Z</option>
-          <option value="2">Z-A</option>
-        </select>
-  </form>
-
+          Add Sensor
+          </a>
+    </div>
 
 <!-- Tabla -->
   <div class="row justify-content-center">
@@ -45,10 +52,74 @@
 
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Active</th>
-            <th scope="col">User Associated</th>
+            <th scope="col">
+              {% if request.args.sort_by == "name.desc"  %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'name.asc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Name</a>
+                {% else %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'name.desc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Name</a>
+              {% endif %}
+            </th>
+            <th scope="col">
+              {% if request.args.sort_by == "status.desc" %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'status.asc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Status</a>
+                {% else %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'status.desc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Status</a>
+                {% endif %}
+            </th>
+            <th scope="col">
+              {% if request.args.sort_by == "active.desc" %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'active.asc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Active</a>
+                {% else %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'active.desc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">Active</a>
+                {% endif %}
+            </th>
+            <th scope="col">
+              {% if request.args.sort_by == "user.email.desc" %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'user.email.asc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">User Associated</a>
+                {% else %}
+                <a class="text-white" href="{{ url_for('sensor.index',
+                sort_by = 'user.email.desc',
+                name = request.args.name,
+                status = request.args.status,
+                active = request.args.active,
+                userId = request.args.userId )}}">User Associated</a>
+                {% endif %}
+            </th>
             <th scope="col">Actions</th>
           </tr>
 
@@ -70,25 +141,62 @@
 <!-- Pagination -->
   <nav aria-label="...">
     <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active">
-        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item"><a class="page-link" href="#">6</a></li>
-      <li class="page-item"><a class="page-link" href="#">7</a></li>
-      <li class="page-item"><a class="page-link" href="#">8</a></li>
-      <li class="page-item"><a class="page-link" href="#">9</a></li>
-      <li class="page-item"><a class="page-link" href="#">10</a></li>
-
+      {% if pagination.current_page != 1 %}
       <li class="page-item">
-        <a class="page-link" href="#">Next</a>
+          <a class="page-link" href="{{ url_for('sensor.index',
+          page = (pagination.current_page-1),
+          sort_by = request.args.sort_by,
+          name = request.args.name,
+          status = request.args.status,
+          active = request.args.active,
+          userId = request.args.userId )}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
       </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a href="#" class="page-link" tabindex="-1" aria-disabled="true" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span></a>
+      </li>
+      {% endif %}
+
+      {% for n in range(1, pagination.pages+1) %}
+
+      {% if n != pagination.current_page %}
+      <li class="page-item">
+          <a class="page-link" href="{{ url_for('sensor.index',
+          page = n,
+          sort_by = request.args.sort_by,
+          name = request.args.name,
+          status = request.args.status,
+          active = request.args.active,
+          userId = request.args.userId )}}">{{n}}</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="+1" aria-disabled="true">{{n}}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+
+      {% if pagination.current_page != pagination.pages %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('sensor.index',
+        page = (pagination.current_page+1),
+        sort_by = request.args.sort_by,
+        name = request.args.name,
+        status = request.args.status,
+        active = request.args.active,
+        userId = request.args.userId )}}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a href="#" class="page-link" tabindex="-1" aria-disabled="true" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span></a>
+      </li>
+      {% endif %}
     </ul>
   </nav>
 

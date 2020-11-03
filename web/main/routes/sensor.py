@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app, request
 from flask_breadcrumbs import register_breadcrumb
 import json, requests
 
-from ..forms.sensor import SensorForm, SensorEdit
+from ..forms.sensor import SensorForm, SensorEdit, SensorFilter
 
 from .auth import admin_required
 from flask_login import login_required
@@ -18,11 +18,41 @@ sensor = Blueprint("sensor", __name__, url_prefix="/sensor")
 @admin_required
 @register_breadcrumb(sensor, ".", 'Sensors')
 def index():
-    req = requests.get(current_app.config["API_URL"] + "/sensors", headers={"content-type": "application/json"},
-                       json={}, data={})
-    sensors = json.loads(req.text)['Sensors']
-    title = "Sensors"
-    return render_template("sensors.html", title=title, sensors=sensors)
+    filter = SensorFilter(request.args, meta={"csrf": False})
+    req = sendRequest(method="get", url="/users", auth=True)
+    filter.userId.choices = [
+        (int(user["id"]), user["email"]) for user in json.loads(req.text)["Users"]
+    ]
+    filter.userId.choices.insert(0, [0, "All"])
+
+    data = {}
+    # Validamos formulario de filtro
+    if filter.validate():
+        if filter.userId.data != None and filter.userId.data != 0:
+            data["userId"] = filter.userId.data
+        if filter.name.data != None:
+            data["name"] = filter.name.data
+        if filter.status.data:
+            data["status"] = filter.status.data
+        if filter.active.data:
+            data["active"] = filter.active.data
+    # Order
+    if "sort_by" in request.args:
+        data["sort_by"] = request.args.get("sort_by", "")
+
+    req = sendRequest(method="get", url="/sensors", data=json.dumps(data), auth=True)
+
+    if req.status_code == 200:
+        sensors = json.loads(req.text)["Sensors"]
+        pagination = {}
+        pagination["total"] = json.loads(req.text)["total"]
+        pagination["pages"] = json.loads(req.text)["pages"]
+        pagination["current_page"] = json.loads(req.text)["page"]
+        pagination["per_page"] = json.loads(req.text)["per_page"]
+        title = "Sensors"
+        return render_template("sensors.html", title=title, sensors=sensors, filter=filter, pagination=pagination,)
+    else:
+        redirect(url_for("sensor.index"))
 
 
 @sensor.route("/view/<int:id>")
@@ -76,15 +106,9 @@ def edit(id):
     if not form.is_submitted():
         req = sendRequest(method="get", url="/sensor/" + str(id), auth=True)
         if (req.status_code == 404):
-            flash("Sensor not found","danger")
+            flash("Sensor not found", "danger")
             return redirect(url_for("sensor.index"))
         sensor = json.loads(req.text)
-        # cargar datos
-        form.name.data = sensor["name"]
-        form.ip.data = sensor["ip"]
-        form.port.data = sensor["port"]
-        form.status.data = sensor["status"]
-        form.active.data = sensor["active"]
 
     if form.validate_on_submit():
         sensor = {
@@ -99,6 +123,15 @@ def edit(id):
         req = sendRequest(method="put", url="/sensor/" + str(id), data=data, auth=True)
         flash("Sensor has been edited","success")
         return redirect(url_for("sensor.index"))
+    else:
+        # cargar datos
+        form.name.data = sensor["name"]
+        form.ip.data = sensor["ip"]
+        form.port.data = sensor["port"]
+        form.status.data = sensor["status"]
+        form.active.data = sensor["active"]
+        form.userId.data = sensor["user"]["id"]
+
     return render_template("edit-sensor.html", form=form, id=id)
 
 
@@ -110,4 +143,12 @@ def delete(id):
     flash("Sensor has been deleted", "danger")
     if req.status_code == 409:
         flash(req.text, "danger")
+    return redirect(url_for('sensor.index'))
+
+
+@sensor.route('check/<int:id>')
+@login_required
+@admin_required
+def check(id):
+    req = sendRequest(method="get", url="/sensor/check/" + str(id), auth=True)
     return redirect(url_for('sensor.index'))
