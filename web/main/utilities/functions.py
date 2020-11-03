@@ -1,4 +1,4 @@
-from flask import current_app, flash, redirect, request, url_for
+from flask import current_app, flash, request, url_for
 import requests
 from werkzeug.routing import RequestRedirect
 
@@ -12,7 +12,7 @@ def sendRequest(method, url, auth=False, data=None):
         # Recolectamos el token de las cookies
         token = request.cookies['access_token']
         # Incorporamos el token en el headers
-        headers["authorization"] = "Bearer "+token
+        headers["authorization"] = "Bearer " + token
 
     if method.lower() == "get":
         r = requests.get(current_app.config["API_URL"] + url, headers=headers, data=data)

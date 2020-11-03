@@ -10,7 +10,7 @@ from main.utilities.sensor_sockets import check_sensor
 class Sensor(Resource):
 
     # Obtener recurso
-    @admin_required
+    # @admin_required
     def get(self, id):
         sensor = db.session.query(SensorModel).get_or_404(id)
         return sensor.to_json()
@@ -44,14 +44,16 @@ class Sensor(Resource):
 
 class Sensors(Resource):
     # Obtener recursoS
-    @admin_required
+    # @admin_required
     def get(self):
+        print("ERROR ANTES")
         page = 1
         per_page = 25
         max_per_page = 50
-
+        print("ERROR DURANTES")
         # FILTROS
         filters = request.get_json().items()
+        print("ERROR DURAANTES2")
         sensors = db.session.query(SensorModel)
 
         for key, value in filters:
@@ -114,6 +116,7 @@ class Sensors(Resource):
 class SensorsInfo(Resource):
     # obtener lista de recursos
     def get(self):
+        print("ERROR ANTESinf")
         sensors = db.session.query(SensorModel)
         return jsonify({'Sensors': [sensor.to_json_public() for sensor in sensors],
 

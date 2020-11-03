@@ -19,8 +19,7 @@ sensor = Blueprint("sensor", __name__, url_prefix="/sensor")
 @register_breadcrumb(sensor, ".", 'Sensors')
 def index():
     req = requests.get(current_app.config["API_URL"] + "/sensors", headers={"content-type": "application/json"},
-                       json={})
-    print("LA REQ PAPA", req)
+                       json={}, data={})
     sensors = json.loads(req.text)['Sensors']
     title = "Sensors"
     return render_template("sensors.html", title=title, sensors=sensors)
@@ -31,7 +30,7 @@ def index():
 @admin_required
 @register_breadcrumb(sensor, '.view', 'View')
 def view(id):
-    req = sendRequest(method="get", url="/sensor/" + str(id), auth=True)
+    req = sendRequest(method="get", url="/sensor/" + str(id), auth=False)
     if (req.status_code == 404):
         flash("Sensor not found", "danger")
         return redirect(url_for("sensor.index"))
@@ -49,7 +48,7 @@ def create():
     req = sendRequest(method="get", url="/users", auth=True)
     form.userId.choices=[(int(user["id"]), user["email"]) for user in json.loads(req.text)["Users"]]
     form.userId.choices.insert(0,[0, "Select one User"])
-    if form.validate_on_submit(): # Si el formulario ha sido enviado y es valido correctamente
+    if form.validate_on_submit():  # Si el formulario ha sido enviado y es valido correctamente
         sensor = {
             "name": form.name.data,
             "ip": form.ip.data,
@@ -61,7 +60,7 @@ def create():
         data = json.dumps(sensor)
         req = sendRequest(method="post", url="/sensors", data=data, auth=True)
 
-        return redirect(url_for("sensor.index")) # Redirecciona a la lista de sensores
+        return redirect(url_for("sensor.index"))  # Redirecciona a la lista de sensores
     return render_template("add-sensor.html", form=form)
 
 
@@ -109,4 +108,6 @@ def edit(id):
 def delete(id):
     req = sendRequest(method="delete", url="/sensor/" + str(id), auth=True)
     flash("Sensor has been deleted", "danger")
+    if req.status_code == 409:
+        flash(req.text, "danger")
     return redirect(url_for('sensor.index'))

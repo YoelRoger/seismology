@@ -13,7 +13,7 @@ def index():
     filter = VerifiedSeismsFilter(request.args, meta={"csrf": False})
     req = sendRequest(method="get", url="/sensors-info", auth=True)
     filter.sensorId.choices = [(int(sensor["id"]), sensor["name"]) for sensor in json.loads(req.text)["Sensors"]]
-    filter.sensorId.choices.insert(0, [0, "All"])
+    filter.sensorId.choices.insert(0, [0, "All Seisms"])
     data = {}
 
     # Aplicado de filtros
@@ -30,10 +30,7 @@ def index():
         if filter.to_datetime.data != None:
             data["to_date"] = filter.to_datetime.data.strftime('%Y-%m-%d %H:%M')
 
-
-
-
-        # Depth
+        # filtro por Depth
         if filter.depth_min.data and filter.depth_max.data:
             if filter.depth_min.data == filter.depth_max.data:
                 data["depth"] = filter.depth_max.data

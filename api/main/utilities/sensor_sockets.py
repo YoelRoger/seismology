@@ -1,9 +1,9 @@
 import socket
 import time
 import json
-
-from main import db
-from main.models import SeismModel, SensorModel
+import random
+from .. import db
+from ..models import SeismModel, SensorModel
 
 
 def create_socket():
@@ -51,7 +51,7 @@ def call_sensors(app):
                     print(d)
                     seism = SeismModel.from_json_seism(json.loads(d))
                     seism.sensorId = sensor.id
-                    seism.verified = False
+                    seism.verified = random.choice([True, False])
                     db.session.add(seism)
                     db.session.commit()
                 except socket.timeout:

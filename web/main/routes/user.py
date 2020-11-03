@@ -19,7 +19,7 @@ def index():
     req = sendRequest(method="get", url="/users", auth=False)
     users = json.loads(req.text)['Users']
     title = "Users List"
-    return render_template("users.html", title=title, users=users) # Mostrar template
+    return render_template("users.html", title=title, users=users)  # Mostrar template
 
 
 @user.route("/add-user", methods=["GET", "POST"])
@@ -27,8 +27,8 @@ def index():
 @admin_required
 @register_breadcrumb(user, ".add", "Add User")
 def create():
-    form = UserForm() # Instanciar formulario
-    if form.validate_on_submit(): # Si el formulario ha sido enviado y es valido correctamente
+    form = UserForm()  # Instanciar formulario
+    if form.validate_on_submit():  # Si el formulario ha sido enviado y es valido correctamente
         user = {
             "email": form.email.data,
             "password": form.password.data,
@@ -39,6 +39,7 @@ def create():
         return redirect(url_for("user.index")) # Redirecciona a la lista de usuarios
     return render_template("user_form.html", form=form)
 
+
 @user.route("/edit/<int:id>", methods=["GET","POST"])
 @login_required
 @admin_required
@@ -47,8 +48,8 @@ def edit(id):
     form = UserEdit()
     if not form.is_submitted():
         req = sendRequest(method="get", url="/user/" + str(id), auth=True)
-        if (req.status_code == 404):
-            flash("User not found","danger")
+        if req.status_code == 404:
+            flash("User not found", "danger")
             return redirect(url_for("user.index"))
         user = json.loads(req.text)
         form.email.data = user["email"]
@@ -61,7 +62,7 @@ def edit(id):
         }
         data = json.dumps(user)
         req = sendRequest(method="put", url="/user/" + str(id), data=data, auth=True)
-        flash("User has been edited","success")
+        flash("User has been edited", "success")
         return redirect(url_for("user.index"))
     return render_template("user-edit.html", form=form, id=id)
 
