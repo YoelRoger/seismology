@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, FloatField, IntegerField, SubmitField, StringField
+from wtforms import BooleanField, FloatField, IntegerField, SubmitField, SelectField, HiddenField
 from wtforms import validators  # Importa validaciones
-# from wtforms.fields.html5 import DateTimeLocalField as DateTimeField
+from wtforms.fields.html5 import DateTimeLocalField as DateTimeField
 
 
 class UnverifiedSeismEdit(FlaskForm):
@@ -21,3 +21,31 @@ class UnverifiedSeismEdit(FlaskForm):
 
     # Definicion de campo Sumbit
     submit = SubmitField("Send")
+
+
+class UnverifiedSeismsFilter(FlaskForm):
+
+    sensorId = SelectField(
+        label="Sensor name",
+        validators=[validators.optional()],
+        coerce=int)
+
+    from_datetime = DateTimeField(
+        label="Since date", format='%Y-%m-%dT%H:%M',
+        validators=[validators.optional()]
+    )
+
+    to_datetime = DateTimeField(
+        label="Until date", format='%Y-%m-%dT%H:%M',
+        validators=[validators.optional()]
+    )
+
+    sort_by = HiddenField()
+
+    per_page = IntegerField(
+        validators=[validators.optional()]
+    )
+
+    submit = SubmitField(
+        label="Filter",
+    )
