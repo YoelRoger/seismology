@@ -1,6 +1,9 @@
 <!-- Hereda del template main -->
 {% extends "main.html" %}
 
+<!-- import shows del template de form -->
+{% from "form_macros.html" import show_field, show_submit, show_placeholder %}
+
 <!-- Importar el archivo de macros -->
 {% import 'macros.html' as macros %}
 
@@ -17,35 +20,48 @@
                   DOWNLOAD SELECTED SEISMS
                 </button>
             </div>
-<form class="form-inline my-2 my-lg-0 justify-content-center">
+<!-- Filtros -->
+<form class="form-inline my-2 my-lg-0 justify-content-center" method="GET" action="{{ url_for('verified_seism.index') }}">
     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-funnel-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
       </svg>
-      <select class="custom-select mx-2">
-        <option selected>Select one option for filter</option>
-        <option value="1">Date Time</option>
-        <option value="2">Depth</option>
-        <option value="3">Magnitude</option>
-        <option value="4">Latitude</option>
-        <option value="5">Longitude</option>
-        <option value="6">Sensors</option>
-      </select>
-    <button class="btn btn-outline-light my-2 my-sm-0 mx-2" type="submit">Filter</button>
-     Date Time: <input class="mx-lg-2 form-control mr-sm-1" type="datetime" placeholder="Since" aria-label="Since">
-    <input class="form-control mr-sm-1" type="datetime" placeholder="Until" aria-label="Until">
-      <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-sort-alpha-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M4 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11A.5.5 0 0 1 4 2z"/>
-        <path fill-rule="evenodd" d="M6.354 11.146a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L4 12.793l1.646-1.647a.5.5 0 0 1 .708 0z"/>
-        <path d="M9.664 7l.418-1.371h1.781L12.281 7h1.121l-1.78-5.332h-1.235L8.597 7h1.067zM11 2.687l.652 2.157h-1.351l.652-2.157H11zM9.027 14h3.934v-.867h-2.645v-.055l2.567-3.719v-.691H9.098v.867h2.507v.055l-2.578 3.719V14z"/>
-      </svg>
-      <select class="custom-select mx-2">
-        <option selected>Select one option for filter</option>
-        <option value="1">A-Z</option>
-        <option value="2">Z-A</option>
-      </select>
-  </form>
+          <div class="justify-content-center">
+             <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.from_datetime, class='form-control' )}}
+              </div>
+              <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.to_datetime, class='form-control' )}}
+              </div>
+          </div>
+          <div class="justify-content-center">
+              <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.magnitude_min, class='form-control' )}}
+              </div>
+              <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.magnitude_max, class='form-control' )}}
+              </div>
+          </div>
+          <div class="justify-content-center">
+              <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.depth_min, class='form-control' )}}
+              </div>
+              <div class="form-group col-md-auto my-2">
+                    {{ show_field(filter.depth_max, class='form-control' )}}
+              </div>
+          </div>
+          <div class="justify-content-center">
+              <div class="form-group col-md-auto my-2">
+                  {{ show_field(filter.sensorId , class='form-control')}}
+              </div>
+              <div class="form-group mt-auto col-md-auto">
+                  {{show_submit(filter.submit, class='btn btn-outline-light my-2 my-sm-0 mx-2')}}
+              </div>
+          </div>
+</form>
 
-  </br>
+<!-- Terminan filtros -->
+
+<!-- "titulo"-->
 <main>
   <div class="container-fluid">
     <div class="row justify-content-center">

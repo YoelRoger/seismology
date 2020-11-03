@@ -19,7 +19,7 @@
 
 <!-- Macro que se encarga de mostrar los campos del formulario -->
 {% macro show_field(field) %}
-    {{ field.label }} <!-- Mostrar etiqueta -->
+    {{ field.label }} : <!-- Mostrar etiqueta -->
     {{ field(**kwargs) | safe }} <!-- Mostrar campo -->
     {{ show_error(field) }} <!-- Llamar a macro que muestra el error -->
 {% endmacro %}
