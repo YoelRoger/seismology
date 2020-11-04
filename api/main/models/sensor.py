@@ -52,6 +52,8 @@ class Sensor(db.Model):
         status = sensor_json.get('status')
         active = sensor_json.get('active')
         userId = sensor_json.get('userId')  # recibe clave foranea tmb
+        if userId == 0:
+            userId = None
         return Sensor(id=id,
                       name=name,
                       ip=ip,

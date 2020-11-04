@@ -26,8 +26,8 @@ class VerifiedSeisms(Resource):
 
     def get(self):
         page = 1
-        per_page = 25
-        max_per_page = 10000
+        per_page = 10
+        max_per_page = 10
 
         # FILTROS sismos verificados
         filters = request.get_json().items()

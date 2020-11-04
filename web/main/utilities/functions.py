@@ -8,7 +8,7 @@ def sendRequest(method, url, auth=False, data=None):
     headers = {"content-type": "application/json"}
 
     # Verificamos si necesita autorizacion
-    if auth:
+    if auth == True:
         # Recolectamos el token de las cookies
         token = request.cookies['access_token']
         # Incorporamos el token en el headers

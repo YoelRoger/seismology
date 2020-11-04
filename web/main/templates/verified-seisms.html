@@ -236,7 +236,8 @@
         </li>
         {% endif %}
         <!--recorremos la cantidad de paginas que hay para el filtrado-->
-        {% for n in range(1, pagination.pages+1) %}
+        {% for n in range(pagination.current_page-5, pagination.current_page+5) %}
+        {%if n>=1 and n<=pagination.pages %}
         <!--redireccion a cada pagina que no sea la actual para c/boton-->
         {% if n != pagination.current_page %}
         <li class="page-item">
@@ -259,6 +260,7 @@
         <li class="page-item disabled">
           <a class="page-link" href="#" tabindex="+1" aria-disabled="true">{{n}}</a>
         </li>
+        {% endif %}
         {% endif %}
         {% endfor %}
         <!-- Boton de siguiente / desactivar si ya es la ultima pagina -->
