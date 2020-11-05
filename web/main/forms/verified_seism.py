@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import HiddenField, FloatField, IntegerField, SubmitField, StringField, SelectField
+from wtforms import  FloatField, IntegerField, SubmitField, SelectField
 from wtforms import validators  # Importa validaciones
 from wtforms.fields.html5 import DateTimeLocalField as DateTimeField
 
@@ -44,10 +44,10 @@ class VerifiedSeismsFilter(FlaskForm):
         coerce= int,
         validators=[validators.optional()])
 
-    # sort_by = HiddenField()
-
     per_page = IntegerField(
         validators=[validators.optional()]
         )
 
     submit = SubmitField(label="Filter",)
+    # Funcionara igual que el FIlter solo que con otro value y nombre para poder descargar
+    download = SubmitField("Download")
