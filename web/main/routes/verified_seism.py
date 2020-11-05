@@ -56,7 +56,7 @@ def index():
 
     # Si se quiere descargar el archivo
     if "download" in request.args:
-        if request.args.get("download", "") == "Download":
+        if request.args.get("download", "") == "Download CSV":
             code = 200
             # Comenzar por la primera pagina
             page = 1

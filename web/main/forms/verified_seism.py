@@ -41,7 +41,7 @@ class VerifiedSeismsFilter(FlaskForm):
 
     sensorId = SelectField(
         label="Associated sensor",
-        coerce= int,
+        coerce=int,
         validators=[validators.optional()])
 
     per_page = IntegerField(
@@ -50,4 +50,4 @@ class VerifiedSeismsFilter(FlaskForm):
 
     submit = SubmitField(label="Filter",)
     # Funcionara igual que el FIlter solo que con otro value y nombre para poder descargar
-    download = SubmitField("Download")
+    download = SubmitField("Download CSV")
