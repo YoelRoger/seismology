@@ -11,16 +11,12 @@ html {
 }
 body {
   /* The image used */
-  background-image: url("fondo3.jpg");
-
-  /* Full height */
-
+    background-image: url("fondo3.jpg");
   /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-   background-color: rgba(24, 25, 27,0.4) !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(24, 25, 27,0.4) !important;
 }
 .home-menu-centered{
     height: 10em;
@@ -36,26 +32,16 @@ body {
     }
 
 .nav-footer {
-   background-color:rgb(59, 94, 184);
+    background-color:rgba(59, 94, 184,0.5);
     position:fixed;
-
-     height: 70px;
-     bottom: 0;
-     left: 0;
-     bottom: 0;
-      width: 100%;
-    }
-#footer {
     bottom: 0;
-    height: 2em;
+    height: 40px;
     left: 0;
-    position:fixed;
-	text-align:center;
     width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
-}
+    padding-bottom: 16px;
+    border-top: 2px;
+    z-index:2000;
+    }
 
 .card {background-color:rgba(178, 182, 188,0.4) !important}
 .card-body {background-color:rgba(178, 182, 188,0) !important}
