@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+//importar sensor component
+import {SensorComponent} from "./sensor/sensor.component"
+import {UserComponent} from "./user/user.component"
 
 const routes: Routes = [
   //Home
