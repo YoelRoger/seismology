@@ -7,13 +7,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SensorComponent } from './sensor/sensor.component';
 import { SeismComponent } from './seism/seism.component';
 import { UserComponent } from './user/user.component';
+import { SensorDetailComponent } from './sensor/sensor-detail/sensor-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SensorComponent,
     SeismComponent,
-    UserComponent
+    UserComponent,
+    SensorDetailComponent
   ],
   imports: [
     BrowserModule,

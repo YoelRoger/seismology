@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //importar modelo sensor
-import {User} from './sensor.model'
+import {Sensor} from './sensor.model'
 
 @Component({
   selector: 'app-sensor',
@@ -14,31 +14,31 @@ export class SensorComponent implements OnInit {
       name: 'SENSAD1',
       active: true,
       status: true,
-      id_num : 1,
+      sensorId : 1,
     },
     {
       name: 'SENSBD2',
       active: true,
       status: true,
-      id_num : 2,
+      sensorId : 2,
     },
   {
       name: "SENSVF3",
       active: true,
       status: false,
-      id_num : 3,
+      sensorId : 3,
     },
     {
       name: 'SENSJJH',
       active: true,
       status: true,
-      id_num : 5,
+      sensorId : 5,
     },
     {
       name: 'SENSYO9',
       active: false,
       status: true,
-      id_num : 4,
+      sensorId : 4,
     },
 
   ];
@@ -46,5 +46,10 @@ export class SensorComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  //funcion para cargar el sensor seleccionado a la variable selectSensor
+  onSelect(sensor:Sensor): void{
+    this.selectedSensor=sensor;
+  }
+
 
 }
